@@ -49,7 +49,7 @@ public class Main {
 				timeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 				JLabel dateLabel = new JLabel();
-				dateLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+				// dateLabel.setFont(new Font("Arial", Font.PLAIN, 16));
 				dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				dateLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
