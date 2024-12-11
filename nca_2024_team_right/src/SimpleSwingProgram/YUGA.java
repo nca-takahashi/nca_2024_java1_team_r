@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-// Main class to launch the game
 public class YUGA {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -19,13 +18,11 @@ public class YUGA {
     }
 }
 
-// The actual game class
 class SimpleMazeGame extends JFrame {
     private static final int CELL_SIZE = 40; // セルのサイズ
     private static final int ROWS = 10; // 行数
     private static final int COLS = 10; // 列数
 
-    // 2つのステージの迷路データ
     private int[][][] mazes = {
         {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -61,7 +58,7 @@ class SimpleMazeGame extends JFrame {
     public SimpleMazeGame() {
         setTitle("Simple Maze Game");
         setSize(COLS * CELL_SIZE, ROWS * CELL_SIZE);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         // キーボード入力を処理
@@ -129,6 +126,7 @@ class SimpleMazeGame extends JFrame {
     }
 
     private void checkWin() {
+        // ゴールの座標 (ROWS-2, COLS-2) にプレイヤーが到達したら次のステージへ
         if (playerRow == ROWS - 2 && playerCol == COLS - 2) {
             JOptionPane.showMessageDialog(this, "You Win Stage " + (currentStage + 1) + "!");
             // ステージの切り替え

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,12 +18,17 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+
 public class Main {
 	public static void main(String[] args) {
+		
+		
+		
+		//Main Manu
 		SwingUtilities.invokeLater(() -> {
 			JFrame window = new JFrame("Simple Swing App");
 			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			window.setSize(new Dimension(300, 200));
+			window.setSize(new Dimension(300, 335));
 
 			JPanel panel = new JPanel();
 			panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -117,6 +123,8 @@ public class Main {
 						});
 					}
 				});
+				
+				
 
 				JLabel thelabel = new JLabel("You can't escape!");
 				thelabel.setHorizontalAlignment(JLabel.CENTER);
@@ -124,12 +132,36 @@ public class Main {
 
 				infinityFrame.setVisible(true);
 			});
-
+			
+			
+			JButton button6 = new JButton("Yuga's maze game");
+			button6.setAlignmentX(Component.CENTER_ALIGNMENT);
+			button6.addActionListener(e -> {
+				YUGA yuga = new YUGA();
+				yuga.main(null);
+			});
+			JButton button7 = new JButton("Mina's Ad Closing game");
+			button7.setAlignmentX(Component.CENTER_ALIGNMENT);
+			button7.addActionListener(e -> {
+				MINA mina = new MINA(null);
+				mina.main();
+			});
+			
+			
+			
+			//Add buttons to panel
 			panel.add(button1);
 			panel.add(button2);
 			panel.add(button3);
 			panel.add(button4);
 			panel.add(button5);
+			panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+			//YUGA
+			panel.add(button6);
+			//MINA
+			panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+			panel.add(button7);
+			
 
 			window.add(panel);
 			window.setLocationRelativeTo(null);
