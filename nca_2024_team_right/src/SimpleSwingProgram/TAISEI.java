@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
+
+
 public class TAISEI extends JFrame {
     // スコア表示用ラベル
     private JLabel scoreLabel; 
