@@ -140,6 +140,12 @@ public class Main {
 				YUGA yuga = new YUGA();
 				yuga.main(null);
 			});
+			JButton button7 = new JButton("Mina's Ad Closing game");
+			button7.setAlignmentX(Component.CENTER_ALIGNMENT);
+			button7.addActionListener(e -> {
+				MINA mina = new MINA(null);
+				mina.main();
+			});
 			
 			
 			
@@ -150,7 +156,11 @@ public class Main {
 			panel.add(button4);
 			panel.add(button5);
 			panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+			//YUGA
 			panel.add(button6);
+			//MINA
+			panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+			panel.add(button7);
 			
 
 			window.add(panel);
