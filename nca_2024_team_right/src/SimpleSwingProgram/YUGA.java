@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-
 // Main class to launch the game
 public class YUGA {
     public static void main(String[] args) {
@@ -26,21 +25,38 @@ class SimpleMazeGame extends JFrame {
     private static final int ROWS = 10; // 行数
     private static final int COLS = 10; // 列数
 
-    private int[][] maze = {
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-        {1, 0, 1, 1, 0, 1, 0, 1, 0, 1},
-        {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
-        {1, 0, 1, 0, 1, 1, 1, 1, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-        {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-        {1, 0, 1, 0, 1, 1, 1, 1, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    // 2つのステージの迷路データ
+    private int[][][] mazes = {
+        {
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+            {1, 0, 1, 1, 0, 1, 0, 1, 0, 1},
+            {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+            {1, 0, 1, 0, 1, 1, 1, 1, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
+            {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+            {1, 0, 1, 0, 1, 1, 1, 1, 0, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        },
+        {
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 0, 0, 0, 0, 1, 0, 1, 0, 1},
+            {1, 1, 1, 0, 0, 1, 1, 0, 0, 1},
+            {1, 0, 0, 0, 1, 0, 1, 1, 0, 1},
+            {1, 1, 1, 0, 0, 1, 1, 1, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+            {1, 0, 1, 1, 0, 0, 1, 1, 1, 1},
+            {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
+            {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        }
     };
 
     private int playerRow = 1; // プレイヤーの初期行位置
     private int playerCol = 1; // プレイヤーの初期列位置
+    private int currentStage = 0; // 現在のステージ番号
+    private boolean reversedControls = false; // 操作が反転しているか
 
     public SimpleMazeGame() {
         setTitle("Simple Maze Game");
@@ -56,14 +72,27 @@ class SimpleMazeGame extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 int key = e.getKeyCode();
-                if (key == KeyEvent.VK_UP && maze[playerRow - 1][playerCol] == 0) {
-                    playerRow--;
-                } else if (key == KeyEvent.VK_DOWN && maze[playerRow + 1][playerCol] == 0) {
-                    playerRow++;
-                } else if (key == KeyEvent.VK_LEFT && maze[playerRow][playerCol - 1] == 0) {
-                    playerCol--;
-                } else if (key == KeyEvent.VK_RIGHT && maze[playerRow][playerCol + 1] == 0) {
-                    playerCol++;
+                // 操作を反転させる
+                if (reversedControls) {
+                    if (key == KeyEvent.VK_UP && mazes[currentStage][playerRow + 1][playerCol] == 0) {
+                        playerRow++;
+                    } else if (key == KeyEvent.VK_DOWN && mazes[currentStage][playerRow - 1][playerCol] == 0) {
+                        playerRow--;
+                    } else if (key == KeyEvent.VK_LEFT && mazes[currentStage][playerRow][playerCol + 1] == 0) {
+                        playerCol++;
+                    } else if (key == KeyEvent.VK_RIGHT && mazes[currentStage][playerRow][playerCol - 1] == 0) {
+                        playerCol--;
+                    }
+                } else {
+                    if (key == KeyEvent.VK_UP && mazes[currentStage][playerRow - 1][playerCol] == 0) {
+                        playerRow--;
+                    } else if (key == KeyEvent.VK_DOWN && mazes[currentStage][playerRow + 1][playerCol] == 0) {
+                        playerRow++;
+                    } else if (key == KeyEvent.VK_LEFT && mazes[currentStage][playerRow][playerCol - 1] == 0) {
+                        playerCol--;
+                    } else if (key == KeyEvent.VK_RIGHT && mazes[currentStage][playerRow][playerCol + 1] == 0) {
+                        playerCol++;
+                    }
                 }
                 repaint();
                 checkWin();
@@ -79,7 +108,7 @@ class SimpleMazeGame extends JFrame {
         super.paint(g);
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
-                if (maze[row][col] == 1) {
+                if (mazes[currentStage][row][col] == 1) {
                     g.setColor(Color.BLACK);
                 } else {
                     g.setColor(Color.WHITE);
@@ -101,11 +130,18 @@ class SimpleMazeGame extends JFrame {
 
     private void checkWin() {
         if (playerRow == ROWS - 2 && playerCol == COLS - 2) {
-            JOptionPane.showMessageDialog(this, "You Win!");
-            System.exit(0);
+            JOptionPane.showMessageDialog(this, "You Win Stage " + (currentStage + 1) + "!");
+            // ステージの切り替え
+            currentStage++;
+            if (currentStage < mazes.length) {
+                playerRow = 1; // プレイヤーの位置をリセット
+                playerCol = 1;
+                reversedControls = !reversedControls; // 操作を反転
+                repaint();
+            } else {
+                JOptionPane.showMessageDialog(this, "You completed all stages!");
+                System.exit(0);
+            }
         }
     }
 }
-
-
-	
