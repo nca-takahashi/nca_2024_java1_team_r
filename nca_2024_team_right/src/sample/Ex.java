@@ -1,7 +1,12 @@
 package sample;
 
 import java.awt.BorderLayout;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -56,4 +61,58 @@ public class Ex {
 		// フレームを表示
 		frame.setVisible(true);
 	}
+
+	// moveImageメソッドは画像を表示し、マウスでドラッグして動かすことができます。
+	public void moveImage() {
+		// 新しいJFrameを作成し、タイトルを設定
+		JFrame frame = new JFrame("画像を動かす");
+		// フレームのサイズを設定
+		frame.setSize(500, 500);
+		// フレームの閉じる操作を設定
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// 画像を読み込む
+		ImageIcon imageIcon = new ImageIcon("C://temp/test.png");
+		JLabel imageLabel = new JLabel(imageIcon);
+
+		// 画像の初期位置を設定
+		imageLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+
+		// フレームにレイアウトマネージャを設定しない（絶対位置を使用）
+		frame.setLayout(null);
+		frame.add(imageLabel);
+
+		// マウスリスナーを追加してドラッグ操作を処理
+		final Point[] initialClick = { null };
+
+		imageLabel.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				initialClick[0] = e.getPoint();
+				imageLabel.getComponentAt(initialClick[0]);
+			}
+		});
+
+		imageLabel.addMouseMotionListener(new MouseMotionAdapter() {
+			public void mouseDragged(MouseEvent e) {
+				// 現在のマウスの位置を取得
+				int thisX = imageLabel.getLocation().x;
+				int thisY = imageLabel.getLocation().y;
+
+				// マウスの移動距離を計算
+				if (initialClick[0] != null) {
+					int xMoved = e.getX() - initialClick[0].x;
+					int yMoved = e.getY() - initialClick[0].y;
+
+					// 新しい位置を設定
+					int X = thisX + xMoved;
+					int Y = thisY + yMoved;
+					imageLabel.setLocation(X, Y);
+				}
+			}
+		});
+
+		// フレームを表示
+		frame.setVisible(true);
+	}
+
 }
