@@ -24,13 +24,13 @@ public class Main {
             label.setAlignmentX(Component.CENTER_ALIGNMENT);
             panel.add(label);
 
-            JButton button1 = new JButton("Click me!");
-            button1.setAlignmentX(Component.CENTER_ALIGNMENT);
-            button1.addActionListener(e -> label.setText("Button clicked!"));
+            JButton button = new JButton("Click me!");
+            button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            button.addActionListener(_ -> label.setText("Button clicked!"));
 
-            JButton button2 = new JButton("Digital Clock");
-            button2.setAlignmentX(Component.CENTER_ALIGNMENT);
-            button2.addActionListener(e -> {
+            JButton clockButton = new JButton("Digital Clock");
+            clockButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            clockButton.addActionListener(_ -> {
                 JFrame secondWindow = new JFrame("Digital Clock");
                 secondWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 secondWindow.setSize(new Dimension(300, 200));
@@ -46,7 +46,7 @@ public class Main {
                 dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
                 dateLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-                Timer timer = new Timer(1000, event -> {
+                Timer timer = new Timer(1000, _ -> {
                     Calendar now = Calendar.getInstance();
                     String timeString = String.format("%02d:%02d:%02d",
                             now.get(Calendar.HOUR_OF_DAY),
@@ -68,16 +68,16 @@ public class Main {
                 secondWindow.setVisible(true);
             });
 
-            JButton button3 = new JButton("Roll Dice");
-            button3.setAlignmentX(Component.CENTER_ALIGNMENT);
-            button3.addActionListener(e -> {
+            JButton diceButton = new JButton("Roll Dice");
+            diceButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            diceButton.addActionListener(_ -> {
                 int randomNum = (int) (Math.random() * 6) + 1;
                 label.setText("You rolled a " + randomNum);
             });
 
-            JButton button4 = new JButton("Change Color");
-            button4.setAlignmentX(Component.CENTER_ALIGNMENT);
-            button4.addActionListener(e -> {
+            JButton colorButton = new JButton("Change Color");
+            colorButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            colorButton.addActionListener(_ -> {
                 Random random = new Random();
                 int r = random.nextInt(256);
                 int g = random.nextInt(256);
@@ -85,9 +85,9 @@ public class Main {
                 panel.setBackground(new Color(r, g, b));
             });
 
-            JButton button5 = new JButton("Infinity Window");
-            button5.setAlignmentX(Component.CENTER_ALIGNMENT);
-            button5.addActionListener(e -> {
+            JButton infinityButton = new JButton("Infinity Window");
+            infinityButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            infinityButton.addActionListener(_ -> {
                 JFrame infinityFrame = new JFrame("Infinity Window");
                 infinityFrame.setSize(400, 300);
                 infinityFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -112,40 +112,103 @@ public class Main {
                 });
 
 
-                JLabel thelabel = new JLabel("You can't escape!");
-                thelabel.setHorizontalAlignment(JLabel.CENTER);
-                infinityFrame.getContentPane().add(thelabel);
+                JLabel messageLabel = new JLabel("You can't escape!");
+                messageLabel.setHorizontalAlignment(JLabel.CENTER);
+                infinityFrame.getContentPane().add(messageLabel);
 
                 infinityFrame.setVisible(true);
             });
 
+            JButton calculatorButton = new JButton("Simple Calculator");
+            calculatorButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            calculatorButton.addActionListener(_ -> {
+                // Create a new window
+                JFrame calcWindow = new JFrame("Simple Calculator");
+                calcWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                calcWindow.setSize(new Dimension(300, 200));
+                calcWindow.setVisible(true);
 
-            JButton button6 = new JButton("Yuga's maze game");
-            button6.setAlignmentX(Component.CENTER_ALIGNMENT);
-            button6.addActionListener(e -> {
-                YUGA yuga = new YUGA();
-                YUGA.main(null);
+                JPanel calcPanel = new JPanel();
+                calcPanel.setLayout(new GridLayout(5, 1)); // Use GridLayout with 5 rows, 1 column
+                calcWindow.add(calcPanel); // Add Panel to Window(JFrame)
+
+                // Set a Title
+                JLabel titleLabel = new JLabel("Simple Calculator!");
+                titleLabel.setHorizontalAlignment(SwingConstants.CENTER); //Center the title
+                calcPanel.add(titleLabel);
+
+                JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); //Panel for input fields
+                JTextField firstField = new JTextField(10);
+                inputPanel.add(firstField);
+                JTextField operationField = new JTextField(1);
+                inputPanel.add(operationField);
+                JTextField secondField = new JTextField(10);
+                inputPanel.add(secondField);
+                calcPanel.add(inputPanel); // Add input panel to main panel
+
+                JLabel resultLabel = new JLabel("RESULT");
+                resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                calcPanel.add(resultLabel);
+                JButton calcButton = new JButton("Calculate");
+                calcButton.addActionListener(_ -> {
+                    // Get values from text fields
+                    double firstNumber = Double.parseDouble(firstField.getText());
+                    String operation = operationField.getText();
+                    double secondNumber = Double.parseDouble(secondField.getText());
+
+                    // Perform calculation based on operation
+                    double result = 0;
+                    switch (operation) {
+                        case "+":
+                            result = firstNumber + secondNumber;
+                            break;
+                        case "-":
+                            result = firstNumber - secondNumber;
+                            break;
+                        case "*":
+                            result = firstNumber * secondNumber;
+                            break;
+                        case "/":
+                            if (secondNumber == 0) {
+                                resultLabel.setText("Error: Division by zero!"); // Error if user tried to divide by 0
+                            } else {
+                                result = firstNumber / secondNumber;
+                            }
+                            break;
+                        default:
+                            resultLabel.setText("Error: Invalid operation!");
+                    }
+
+                    // Update result label
+                    resultLabel.setText("RESULT"); // Clear any previous message
+                    resultLabel.setText(resultLabel.getText() + ": " + result);
+                });
+                calcPanel.add(calcButton);
             });
-            JButton button7 = new JButton("Mina's Ad Closing game");
-            button7.setAlignmentX(Component.CENTER_ALIGNMENT);
-            button7.addActionListener(e -> {
-                MINA mina = new MINA(null);
-                MINA.main();
-            });
+
+
+            JButton mazeButton = new JButton("Yuga's maze game");
+            mazeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            mazeButton.addActionListener(_ -> YUGA.main(null));
+            JButton adButton = new JButton("Mina's Ad Closing game");
+            adButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            adButton.addActionListener(_ -> MINA.main());
 
 
             //Add buttons to panel
-            panel.add(button1);
-            panel.add(button2);
-            panel.add(button3);
-            panel.add(button4);
-            panel.add(button5);
-            panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            //Shogo
+            panel.add(button);
+            panel.add(clockButton);
+            panel.add(diceButton);
+            panel.add(colorButton);
+            panel.add(infinityButton);
+            panel.add(calculatorButton);
             //YUGA
-            panel.add(button6);
+            panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            panel.add(mazeButton);
             //MINA
             panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
-            panel.add(button7);
+            panel.add(adButton);
 
 
             window.add(panel);
