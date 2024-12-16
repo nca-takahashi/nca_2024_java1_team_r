@@ -10,7 +10,6 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
 
-
         //Main Manu
         SwingUtilities.invokeLater(() -> {
             JFrame window = new JFrame("Simple Swing App");
@@ -177,6 +176,8 @@ public class Main {
                             break;
                         default:
                             resultLabel.setText("Error: Invalid operation!");
+                            return; // Add this to prevent further execution
+
                     }
 
                     // Update result label
