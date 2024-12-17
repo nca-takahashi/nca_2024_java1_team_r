@@ -190,10 +190,17 @@ public class Main {
 
             JButton mazeButton = new JButton("Yuga's maze game");
             mazeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            mazeButton.addActionListener(_ -> YUGA.main(null));
+            mazeButton.addActionListener(_ -> YUGA.main());
+
+
             JButton adButton = new JButton("Mina's Ad Closing game");
             adButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             adButton.addActionListener(_ -> MINA.main());
+
+
+            JButton clickButton = new JButton("Taisei's Clicking Game");
+            clickButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            clickButton.addActionListener(_ -> TAISEI.main());
 
 
             //Add buttons to panel
@@ -204,15 +211,15 @@ public class Main {
             panel.add(colorButton);
             panel.add(infinityButton);
             panel.add(calculatorButton);
-            //YUGA
+            // YUGA
             panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
             panel.add(mazeButton);
-            //MINA
+            // MINA
             panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
             panel.add(adButton);
-            // NAME
+            // TAISEI
             panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
-            // Add other button here //
+            panel.add(clickButton);
 
 
             window.add(panel);
