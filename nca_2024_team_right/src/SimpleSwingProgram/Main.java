@@ -14,7 +14,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             JFrame window = new JFrame("Simple Swing App");
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setSize(new Dimension(300, 335));
+            window.setSize(new Dimension(300, 375));
 
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -210,6 +210,9 @@ public class Main {
             //MINA
             panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
             panel.add(adButton);
+            // NAME
+            panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            // Add other button here //
 
 
             window.add(panel);
