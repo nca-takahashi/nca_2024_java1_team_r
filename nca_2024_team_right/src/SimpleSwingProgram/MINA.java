@@ -1,45 +1,36 @@
-package SimpleSwingProgram;
-import java.awt.BorderLayout;
+package SimpleSwingProgram; // Replace with your desired package name
+
+import java.awt.Dimension;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-class MINA extends JFrame{
-  public static void main(){
+public class MINA extends JFrame {
+
+  public static void main(String[] args) { // Use String[] args for main method
     MINA frame = new MINA("MyTitle");
+    frame.setSize(new Dimension(728, 400)); // Use setSize instead of setBounds
     frame.setVisible(true);
   }
 
-  MINA(String title){
+  public MINA(String title) {
     setTitle(title);
-    setBounds(100, 100, 728, 400);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    JPanel panel = new JPanel();
 
-    ImageIcon icon1 = new ImageIcon("チーム制作作品1.png");
-    ImageIcon icon2 = new ImageIcon("広告.png");
-    ImageIcon icon3 = new ImageIcon("広告　モンゴル.png");
-    ImageIcon icon4 = new ImageIcon("A.png");
+    // Load and display the image
+    URL imageURL = getClass().getClassLoader().getResource("resources/A.png");
+    if (imageURL != null) {
+      ImageIcon image = new ImageIcon(imageURL);
+      JLabel imageLabel = new JLabel(image);
+      panel.add(imageLabel);
+    } else {
+      System.out.println("Error: Image not found!");
+    }
 
-    JLabel label1 = new JLabel(icon1);
-    JLabel label2 = new JLabel(icon2);
-    JLabel label3 = new JLabel(icon3);
-    JLabel label4 = new JLabel(icon4);
-    
-    JPanel p = new JPanel();
-    p.add(label1);
-    
-    JPanel q = new JPanel();
-    q.add(label2);
-   
-    JPanel a = new JPanel();
-    a.add(label2);
-    
-    JPanel r = new JPanel();
-    r.add(label2);
-    
-    
-    add(p, BorderLayout.CENTER);
+    getContentPane().add(panel); // Add panel to content pane
   }
 }
