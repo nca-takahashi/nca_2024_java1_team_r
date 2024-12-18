@@ -86,7 +86,7 @@ public class Main {
 
             JButton infinityButton = new JButton("Infinity Window");
             infinityButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            infinityButton.addActionListener(_ -> {
+            infinityButton.addActionListener(e -> {
                 JFrame infinityFrame = new JFrame("Infinity Window");
                 infinityFrame.setSize(400, 300);
                 infinityFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -120,7 +120,7 @@ public class Main {
 
             JButton calculatorButton = new JButton("Simple Calculator");
             calculatorButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            calculatorButton.addActionListener(_ -> {
+            calculatorButton.addActionListener(e -> {
                 // Create a new window
                 JFrame calcWindow = new JFrame("Simple Calculator");
                 calcWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -149,7 +149,7 @@ public class Main {
                 resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
                 calcPanel.add(resultLabel);
                 JButton calcButton = new JButton("Calculate");
-                calcButton.addActionListener(_ -> {
+                calcButton.addActionListener(event -> {
                     // Get values from text fields
                     double firstNumber = Double.parseDouble(firstField.getText());
                     String operation = operationField.getText();
@@ -190,17 +190,17 @@ public class Main {
 
             JButton mazeButton = new JButton("Yuga's maze game");
             mazeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            mazeButton.addActionListener(_ -> YUGA.main());
+            mazeButton.addActionListener(e -> YUGA.main());
 
 
             JButton adButton = new JButton("Mina's Ad Closing game");
             adButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            adButton.addActionListener(_ -> MINA.main());
+            adButton.addActionListener(e -> MINA.main());
 
 
             JButton clickButton = new JButton("Taisei's Clicking Game");
             clickButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            clickButton.addActionListener(_ -> TAISEI.main());
+            clickButton.addActionListener(e -> TAISEI.main());
 
 
             //Add buttons to panel
