@@ -178,3 +178,4 @@ public class TAISEI extends JFrame {
         new TAISEI(); // TAISEIクラスのインスタンスを作成してゲームを開始
     }
 }
+
