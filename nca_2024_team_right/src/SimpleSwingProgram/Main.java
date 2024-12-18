@@ -14,7 +14,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             JFrame window = new JFrame("Simple Swing App");
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setSize(new Dimension(300, 375));
+            window.setSize(new Dimension(300, 450));
 
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -203,6 +203,11 @@ public class Main {
             clickButton.addActionListener(event -> TAISEI.main(args));
 
 
+            JButton haruButton = new JButton("Haru's Subscribing Button");
+            haruButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            haruButton.addActionListener(e -> HARU.main(args));
+
+
             //Add buttons to panel
             //Shogo
             panel.add(button);
@@ -220,7 +225,9 @@ public class Main {
             // TAISEI
             panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
             panel.add(clickButton);
-
+            // HARU
+            panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            panel.add(haruButton);
 
             window.add(panel);
             window.setLocationRelativeTo(null);
