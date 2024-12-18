@@ -195,7 +195,7 @@ public class Main {
 
             JButton adButton = new JButton("Mina's Ad Closing game");
             adButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            adButton.addActionListener(event -> MINA.main());
+            adButton.addActionListener(event -> MINA.main(args));
 
 
             JButton clickButton = new JButton("Taisei's Clicking Game");
