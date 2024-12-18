@@ -1,53 +1,35 @@
 package SimpleSwingProgram;
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class HARU {
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Custom Frame");
-        frame.setSize(400, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Exit when the close button is clicked
-        frame.setLayout(null);
+        JFrame frame = new JFrame("Full Screen Button");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(null); // Set panel layout to null for manual control over positioning
-        panel.setBounds(0, 0, 400, 400); // Ensure panel takes up the whole frame
-        frame.add(panel); // Add panel to frame
+        JButton button = new JButton("Click Me!");
 
-        JButton button1 = new JButton(" ");
-        button1.setBounds(100, 100, 50, 50); // Position and size for button1
-        button1.setBackground(Color.GREEN); // Just to distinguish it visually
+        // Add the button to the frame
+        frame.add(button, BorderLayout.CENTER);
 
-        JButton button2 = new JButton("×");
-        button2.setBounds(160, 100, 50, 50); // Position and size for button2
+        // Add a ComponentListener to dynamically resize the button
+        frame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                // Get the current size of the frame
+                int width = frame.getWidth();
+                int height = frame.getHeight();
 
-        // Action for button1
-        button1.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(frame, "登録されました");
+                // Set the button's size to match the frame
+                button.setBounds(0, 0, width, height);
             }
         });
 
-        // Action for button2
-        button2.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(frame, "クリア");
-            }
-        });
-
-        // Add buttons to the panel
-        panel.add(button1);
-button1.add(button2);
-
+        frame.setSize(400, 300);
         frame.setVisible(true);
     }
 }
-
-
