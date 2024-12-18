@@ -1,139 +1,230 @@
 package SimpleSwingProgram;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 
 public class Main {
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(() -> {
-			JFrame window = new JFrame("Simple Swing App");
-			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			window.setSize(new Dimension(300, 200));
+    public static void main(String[] args) {
 
-			JPanel panel = new JPanel();
-			panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        //Main Manu
+        SwingUtilities.invokeLater(() -> {
+            JFrame window = new JFrame("Simple Swing App");
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            window.setSize(new Dimension(300, 375));
 
-			JLabel label = new JLabel("Hello, Java Swing!");
-			label.setAlignmentX(Component.CENTER_ALIGNMENT);
-			panel.add(label);
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-			JButton button1 = new JButton("Click me!");
-			button1.setAlignmentX(Component.CENTER_ALIGNMENT);
-			button1.addActionListener(e -> label.setText("Button clicked!"));
+            JLabel label = new JLabel("Hello, Java Swing!");
+            label.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panel.add(label);
 
-			JButton button2 = new JButton("Digital Clock");
-			button2.setAlignmentX(Component.CENTER_ALIGNMENT);
-			button2.addActionListener(e -> {
-				JFrame secondWindow = new JFrame("Digital Clock");
-				secondWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				secondWindow.setSize(new Dimension(300, 200));
+            JButton button = new JButton("Click me!");
+            button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            button.addActionListener(_ -> label.setText("Button clicked!"));
 
-				JPanel clockPanel = new JPanel();
-				JLabel timeLabel = new JLabel();
-				timeLabel.setFont(new Font("Arial", Font.BOLD, 24));
-				timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				timeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JButton clockButton = new JButton("Digital Clock");
+            clockButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            clockButton.addActionListener(_ -> {
+                JFrame secondWindow = new JFrame("Digital Clock");
+                secondWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                secondWindow.setSize(new Dimension(300, 200));
 
-				JLabel dateLabel = new JLabel();
-				// dateLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-				dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				dateLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                JPanel clockPanel = new JPanel();
+                JLabel timeLabel = new JLabel();
+                timeLabel.setFont(new Font("Arial", Font.BOLD, 24));
+                timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                timeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-				Timer timer = new Timer(1000, event -> {
-					Calendar now = Calendar.getInstance();
-					String timeString = String.format("%02d:%02d:%02d",
-							now.get(Calendar.HOUR_OF_DAY),
-							now.get(Calendar.MINUTE),
-							now.get(Calendar.SECOND));
-					timeLabel.setText(timeString);
+                JLabel dateLabel = new JLabel();
+                // dateLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+                dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                dateLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-					SimpleDateFormat dateFormatter = new SimpleDateFormat("E MMM dd, yyyy");
-					String dateString = dateFormatter.format(now.getTime());
-					dateLabel.setText(dateString);
-				});
-				timer.start();
+                Timer timer = new Timer(1000, _ -> {
+                    Calendar now = Calendar.getInstance();
+                    String timeString = String.format("%02d:%02d:%02d",
+                            now.get(Calendar.HOUR_OF_DAY),
+                            now.get(Calendar.MINUTE),
+                            now.get(Calendar.SECOND));
+                    timeLabel.setText(timeString);
 
-				clockPanel.add(dateLabel);
-				clockPanel.add(timeLabel);
+                    SimpleDateFormat dateFormatter = new SimpleDateFormat("E MMM dd, yyyy");
+                    String dateString = dateFormatter.format(now.getTime());
+                    dateLabel.setText(dateString);
+                });
+                timer.start();
 
-				secondWindow.setContentPane(clockPanel);
-				secondWindow.setLocationRelativeTo(null);
-				secondWindow.setVisible(true);
-			});
+                clockPanel.add(dateLabel);
+                clockPanel.add(timeLabel);
 
-			JButton button3 = new JButton("Roll Dice");
-			button3.setAlignmentX(Component.CENTER_ALIGNMENT);
-			button3.addActionListener(e -> {
-				int randomNum = (int) (Math.random() * 6) + 1;
-				label.setText("You rolled a " + randomNum);
-			});
+                secondWindow.setContentPane(clockPanel);
+                secondWindow.setLocationRelativeTo(null);
+                secondWindow.setVisible(true);
+            });
 
-			JButton button4 = new JButton("Change Color");
-			button4.setAlignmentX(Component.CENTER_ALIGNMENT);
-			button4.addActionListener(e -> {
-				Random random = new Random();
-				int r = random.nextInt(256);
-				int g = random.nextInt(256);
-				int b = random.nextInt(256);
-				panel.setBackground(new Color(r, g, b));
-			});
+            JButton diceButton = new JButton("Roll Dice");
+            diceButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            diceButton.addActionListener(_ -> {
+                int randomNum = (int) (Math.random() * 6) + 1;
+                label.setText("You rolled a " + randomNum);
+            });
 
-			JButton button5 = new JButton("Infinity Window");
-			button5.setAlignmentX(Component.CENTER_ALIGNMENT);
-			button5.addActionListener(e -> {
-				JFrame infinityFrame = new JFrame("Infinity Window");
-				infinityFrame.setSize(400, 300);
-				infinityFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            JButton colorButton = new JButton("Change Color");
+            colorButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            colorButton.addActionListener(_ -> {
+                Random random = new Random();
+                int r = random.nextInt(256);
+                int g = random.nextInt(256);
+                int b = random.nextInt(256);
+                panel.setBackground(new Color(r, g, b));
+            });
 
-				infinityFrame.addWindowListener(new java.awt.event.WindowAdapter() {
-					@Override
-					public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-						SwingUtilities.invokeLater(() -> {
-							JFrame newFrame = new JFrame("Infinity Window");
-							newFrame.setSize(400, 300);
-							newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            JButton infinityButton = new JButton("Infinity Window");
+            infinityButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            infinityButton.addActionListener(_ -> {
+                JFrame infinityFrame = new JFrame("Infinity Window");
+                infinityFrame.setSize(400, 300);
+                infinityFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-							newFrame.addWindowListener(this);
+                infinityFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                        SwingUtilities.invokeLater(() -> {
+                            JFrame newFrame = new JFrame("Infinity Window");
+                            newFrame.setSize(400, 300);
+                            newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-							JLabel label = new JLabel("Catch me if you can!");
-							label.setHorizontalAlignment(JLabel.CENTER);
-							newFrame.getContentPane().add(label);
+                            newFrame.addWindowListener(this);
 
-							newFrame.setVisible(true);
-						});
-					}
-				});
+                            JLabel label = new JLabel("Catch me if you can!");
+                            label.setHorizontalAlignment(JLabel.CENTER);
+                            newFrame.getContentPane().add(label);
 
-				JLabel thelabel = new JLabel("You can't escape!");
-				thelabel.setHorizontalAlignment(JLabel.CENTER);
-				infinityFrame.getContentPane().add(thelabel);
+                            newFrame.setVisible(true);
+                        });
+                    }
+                });
 
-				infinityFrame.setVisible(true);
-			});
 
-			panel.add(button1);
-			panel.add(button2);
-			panel.add(button3);
-			panel.add(button4);
-			panel.add(button5);
+                JLabel messageLabel = new JLabel("You can't escape!");
+                messageLabel.setHorizontalAlignment(JLabel.CENTER);
+                infinityFrame.getContentPane().add(messageLabel);
 
-			window.add(panel);
-			window.setLocationRelativeTo(null);
-			window.setVisible(true);
-		});
-	}
+                infinityFrame.setVisible(true);
+            });
+
+            JButton calculatorButton = new JButton("Simple Calculator");
+            calculatorButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            calculatorButton.addActionListener(_ -> {
+                // Create a new window
+                JFrame calcWindow = new JFrame("Simple Calculator");
+                calcWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                calcWindow.setSize(new Dimension(300, 200));
+                calcWindow.setVisible(true);
+
+                JPanel calcPanel = new JPanel();
+                calcPanel.setLayout(new GridLayout(5, 1)); // Use GridLayout with 5 rows, 1 column
+                calcWindow.add(calcPanel); // Add Panel to Window(JFrame)
+
+                // Set a Title
+                JLabel titleLabel = new JLabel("Simple Calculator!");
+                titleLabel.setHorizontalAlignment(SwingConstants.CENTER); //Center the title
+                calcPanel.add(titleLabel);
+
+                JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); //Panel for input fields
+                JTextField firstField = new JTextField(10);
+                inputPanel.add(firstField);
+                JTextField operationField = new JTextField(1);
+                inputPanel.add(operationField);
+                JTextField secondField = new JTextField(10);
+                inputPanel.add(secondField);
+                calcPanel.add(inputPanel); // Add input panel to main panel
+
+                JLabel resultLabel = new JLabel("RESULT");
+                resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                calcPanel.add(resultLabel);
+                JButton calcButton = new JButton("Calculate");
+                calcButton.addActionListener(_ -> {
+                    // Get values from text fields
+                    double firstNumber = Double.parseDouble(firstField.getText());
+                    String operation = operationField.getText();
+                    double secondNumber = Double.parseDouble(secondField.getText());
+
+                    // Perform calculation based on operation
+                    double result = 0;
+                    switch (operation) {
+                        case "+":
+                            result = firstNumber + secondNumber;
+                            break;
+                        case "-":
+                            result = firstNumber - secondNumber;
+                            break;
+                        case "*":
+                            result = firstNumber * secondNumber;
+                            break;
+                        case "/":
+                            if (secondNumber == 0) {
+                                resultLabel.setText("Error: Division by zero!"); // Error if user tried to divide by 0
+                            } else {
+                                result = firstNumber / secondNumber;
+                            }
+                            break;
+                        default:
+                            resultLabel.setText("Error: Invalid operation!");
+                            return; // Add this to prevent further execution
+
+                    }
+
+                    // Update result label
+                    resultLabel.setText("RESULT"); // Clear any previous message
+                    resultLabel.setText(resultLabel.getText() + ": " + result);
+                });
+                calcPanel.add(calcButton);
+            });
+
+
+            JButton mazeButton = new JButton("Yuga's maze game");
+            mazeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            mazeButton.addActionListener(_ -> YUGA.main());
+
+
+            JButton adButton = new JButton("Mina's Ad Closing game");
+            adButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            adButton.addActionListener(_ -> MINA.main());
+
+
+            JButton clickButton = new JButton("Taisei's Clicking Game");
+            clickButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            clickButton.addActionListener(_ -> TAISEI.main());
+
+
+            //Add buttons to panel
+            //Shogo
+            panel.add(button);
+            panel.add(clockButton);
+            panel.add(diceButton);
+            panel.add(colorButton);
+            panel.add(infinityButton);
+            panel.add(calculatorButton);
+            // YUGA
+            panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            panel.add(mazeButton);
+            // MINA
+            panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            panel.add(adButton);
+            // TAISEI
+            panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            panel.add(clickButton);
+
+
+            window.add(panel);
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
+        });
+    }
 }
