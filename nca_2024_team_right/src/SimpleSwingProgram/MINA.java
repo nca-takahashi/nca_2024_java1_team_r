@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MINA extends JFrame { // Use lowercase class name
+public class MINA extends JFrame {
 
   public static void main(String[] args) { // Use String[] args for main method
     MINA frame = new MINA("MyTitle");
