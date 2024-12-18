@@ -200,7 +200,7 @@ public class Main {
 
             JButton clickButton = new JButton("Taisei's Clicking Game");
             clickButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            clickButton.addActionListener(event -> TAISEI.main());
+            clickButton.addActionListener(event -> TAISEI.main(args));
 
 
             //Add buttons to panel
