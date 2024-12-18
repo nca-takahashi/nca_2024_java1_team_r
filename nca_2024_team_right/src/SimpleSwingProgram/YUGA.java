@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 public class YUGA {
-    public static void main(String[] args) {
+    public static void main() {
         SwingUtilities.invokeLater(() -> {
             SimpleMazeGame game = new SimpleMazeGame();
             game.setVisible(true);
@@ -138,7 +138,7 @@ class SimpleMazeGame extends JFrame {
                 repaint();
             } else {
                 JOptionPane.showMessageDialog(this, "You completed all stages!");
-                System.exit(0);
+                dispose();
             }
         }
     }
