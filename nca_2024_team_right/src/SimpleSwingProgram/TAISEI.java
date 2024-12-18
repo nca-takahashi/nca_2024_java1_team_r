@@ -57,7 +57,7 @@ public class TAISEI extends JFrame {
         // 残り時間表示用ラベルの作成
         timerLabel = new JLabel("time limit 10", JLabel.RIGHT);
         timerLabel.setFont(new Font("Arial", Font.PLAIN, 24)); // フォント設定
-        timerLabel.setBounds(getWidth() - 210, 10, 200, 30); // 右上に表示（画面幅から少し余裕を持たせる）
+        timerLabel.setBounds(getWidth() - 230, 10, 200, 30); // 右上に表示（画面幅から少し余裕を持たせる）
         add(timerLabel); // ラベルをフレームに追加
 
         // ゲーム画面のパネル
@@ -69,8 +69,8 @@ public class TAISEI extends JFrame {
                 if (gameOver) {
                     g.setColor(Color.BLACK); // 文字の色を黒に設定
                     g.setFont(new Font("Arial", Font.PLAIN, 30)); // フォント設定
-                    g.drawString("game over", 350, 250); // ゲームオーバーのメッセージ
-                    g.drawString("your score " + score, 300, 300); // スコア表示
+                    g.drawString("game over", 350, 280); // ゲームオーバーのメッセージ
+                    g.drawString("your score " + score, 335, 330); // スコア表示
                     return; // ゲームオーバーの場合は描画を終了
                 }
 
@@ -146,17 +146,19 @@ public class TAISEI extends JFrame {
         repaint(); // 目標の位置を更新し、再描画
     }
 
-    // クリックされた位置がターゲット内かどうかを判定するメソッド
     private boolean isClickInsideTarget(Point clickPoint) {
         // 目標の中心座標
-        int centerX = targetPosition.x + targetDiameter / 2;
-        int centerY = targetPosition.y + targetDiameter / 2;
+        int centerX = targetPosition.x + targetDiameter / 2;  // ターゲットの中心X座標
+        int centerY = targetPosition.y + targetDiameter / 2;  // ターゲットの中心Y座標
+        
         // 目標の半径（直径の半分）
         int radius = targetDiameter / 2;
-
-        // クリック位置とターゲット中心との距離が半径以下なら、ターゲット内
+        
+        // クリック位置とターゲット中心との距離を計算
         double distance = Math.sqrt(Math.pow(clickPoint.x - centerX, 2) + Math.pow(clickPoint.y - centerY, 2));
-        return distance <= radius; // 正確なクリック判定
+        
+        // 距離が半径以下ならターゲット内
+        return distance <= radius; 
     }
 
     // ゲーム開始時の処理
@@ -164,7 +166,7 @@ public class TAISEI extends JFrame {
         score = 0; // ゲーム開始時にスコアを0にリセット
         remainingTime = 10; // ゲーム開始時に残り時間を10秒に設定
         gameOver = false; // ゲームオーバーフラグをfalseに設定
-        targetDiameter = 100; // ターゲットの最初の直径を100に設定
+        targetDiameter = 60; // ターゲットの最初の直径を100に設定
         spawnTarget(); // 最初のターゲットを生成
         gameTimer.start(); // ゲームタイマーをスタート
         startButton.setVisible(false); // スタートボタンを非表示にする
