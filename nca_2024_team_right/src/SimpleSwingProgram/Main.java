@@ -8,8 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 
-import static java.awt.SystemColor.window;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -105,7 +103,7 @@ public class Main {
                 b = random.nextInt(256);
                 panel2.setBackground(new Color(r, g, b));
 
-        });
+            });
 
 
             JButton infinityButton = new JButton("Infinity Window");
@@ -231,6 +229,10 @@ public class Main {
             haruButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             haruButton.addActionListener(e -> HARU.main(args));
 
+            JButton HIDEButton = new JButton("Hide's Sugoroku Game");
+            HIDEButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            HIDEButton.addActionListener(e -> HIDEAKI.DiceGame.main(args));
+
 
             //Add buttons to panel
             //Shogo
@@ -252,6 +254,9 @@ public class Main {
             // HARU
             panel2.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
             panel2.add(haruButton);
+            // HIDEAKI
+            panel2.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            panel2.add(HIDEButton);
 
 
             // Add Panels to mainPanel
