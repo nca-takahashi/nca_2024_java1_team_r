@@ -84,7 +84,7 @@ public class Main {
                 label.setText("You rolled a " + randomNum);
             });
 
-            JButton colorButton = new JButton("Change Color(Check border)");
+            JButton colorButton = new JButton("Change Color (Check border)");
             colorButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             colorButton.addActionListener(event -> {
                 Random random = new Random();
