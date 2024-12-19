@@ -1,56 +1,54 @@
 package SimpleSwingProgram;
 
-import java.awt.BorderLayout;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class HARU {
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Full Screen Button");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Centered Button in Button");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setLayout(new FlowLayout());
 
-        JButton button1 = new JButton(" ");
-        JButton button2 = new JButton("×");
-        // Add the button to the frame
-        frame.add(button1, BorderLayout.CENTER);
-        frame.add(button2, BorderLayout.CENTER);
-        button1.add(button2);
+            JButton outerButton = new JButton("Outer");
+            outerButton.setPreferredSize(new Dimension(200, 100));
 
-        // Add a ComponentListener to dynamically resize the button
-        frame.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                // Get the current size of the frame
-                int width = frame.getWidth();
-                int height = frame.getHeight();
+            JPanel buttonPanel = new JPanel(new BorderLayout());
+            buttonPanel.setPreferredSize(outerButton.getPreferredSize());
+            buttonPanel.setBorder(outerButton.getBorder());
+            buttonPanel.setOpaque(false);
 
-                // Set the button's size to match the frame
-                button1.setBounds(0, 0, width, height);
-            }
+            JButton innerButton = new JButton("X");
+            innerButton.setPreferredSize(new Dimension(30, 30)); // Set smaller preferred size for inner button
+            innerButton.setFont(new Font("Arial", Font.BOLD, 16)); // Optionally, adjust font size
+
+            JPanel innerButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+            innerButtonPanel.add(innerButton);
+            innerButtonPanel.setOpaque(false);
+
+            buttonPanel.add(innerButtonPanel, BorderLayout.CENTER);
+
+            buttonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    if (!innerButton.getBounds().contains(evt.getPoint())) {
+                        JOptionPane.showMessageDialog(frame, "Outer area Clicked!");
+                    }
+                }
+            });
+
+            innerButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(frame, "Inner Button Clicked!");
+                }
+            });
+
+            frame.add(buttonPanel);
+            frame.pack();
+            frame.setVisible(true);
         });
-       button2.setSize(20,20);
-
-        button1.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(frame, "登録されました");
-            }
-        });
-        button2.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(frame, "クリア");
-            }
-        });
-
-
-        frame.setSize(400, 300);
-        frame.setVisible(true);
     }
 }

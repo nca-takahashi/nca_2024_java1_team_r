@@ -2,9 +2,13 @@ package SimpleSwingProgram;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
+
+import static java.awt.SystemColor.window;
 
 
 public class Main {
@@ -14,14 +18,20 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             JFrame window = new JFrame("Simple Swing App");
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setSize(new Dimension(300, 450));
+            window.setSize(new Dimension(440, 320));
+            window.setResizable(false);
 
-            JPanel panel = new JPanel();
-            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            JPanel mainPanel = new JPanel();
+            mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS)); // Horizontal layout
+
+            JPanel panel1 = new JPanel();
+            JPanel panel2 = new JPanel();
+            panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
+            panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
 
             JLabel label = new JLabel("Hello, Java Swing!");
             label.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(label);
+            panel1.add(label);
 
             JButton button = new JButton("Click me!");
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -74,15 +84,29 @@ public class Main {
                 label.setText("You rolled a " + randomNum);
             });
 
-            JButton colorButton = new JButton("Change Color");
+            JButton colorButton = new JButton("Change Color(Check border)");
             colorButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             colorButton.addActionListener(event -> {
                 Random random = new Random();
                 int r = random.nextInt(256);
                 int g = random.nextInt(256);
                 int b = random.nextInt(256);
-                panel.setBackground(new Color(r, g, b));
-            });
+                window.setBackground(new Color(r, g, b));
+                r = random.nextInt(256);
+                g = random.nextInt(256);
+                b = random.nextInt(256);
+                mainPanel.setBackground(new Color(r, g, b));
+                r = random.nextInt(256);
+                g = random.nextInt(256);
+                b = random.nextInt(256);
+                panel1.setBackground(new Color(r, g, b));
+                r = random.nextInt(256);
+                g = random.nextInt(256);
+                b = random.nextInt(256);
+                panel2.setBackground(new Color(r, g, b));
+
+        });
+
 
             JButton infinityButton = new JButton("Infinity Window");
             infinityButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -91,9 +115,9 @@ public class Main {
                 infinityFrame.setSize(400, 300);
                 infinityFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                infinityFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+                infinityFrame.addWindowListener(new WindowAdapter() {
                     @Override
-                    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    public void windowClosed(WindowEvent windowEvent) {
                         SwingUtilities.invokeLater(() -> {
                             JFrame newFrame = new JFrame("Infinity Window");
                             newFrame.setSize(400, 300);
@@ -210,26 +234,30 @@ public class Main {
 
             //Add buttons to panel
             //Shogo
-            panel.add(button);
-            panel.add(clockButton);
-            panel.add(diceButton);
-            panel.add(colorButton);
-            panel.add(infinityButton);
-            panel.add(calculatorButton);
+            panel1.add(button);
+            panel1.add(clockButton);
+            panel1.add(diceButton);
+            panel1.add(colorButton);
+            panel1.add(infinityButton);
+            panel1.add(calculatorButton);
             // YUGA
-            panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
-            panel.add(mazeButton);
+            panel2.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            panel2.add(mazeButton);
             // MINA
-            panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
-            panel.add(adButton);
+            panel2.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            panel2.add(adButton);
             // TAISEI
-            panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
-            panel.add(clickButton);
+            panel2.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            panel2.add(clickButton);
             // HARU
-            panel.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
-            panel.add(haruButton);
+            panel2.add(Box.createRigidArea(new Dimension(10, 20))); // 10px wide, 20px high
+            panel2.add(haruButton);
 
-            window.add(panel);
+
+            // Add Panels to mainPanel
+            mainPanel.add(panel1);
+            mainPanel.add(panel2);
+            window.add(mainPanel);
             window.setLocationRelativeTo(null);
             window.setVisible(true);
         });
