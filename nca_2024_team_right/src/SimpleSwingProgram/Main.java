@@ -229,9 +229,9 @@ public class Main {
             haruButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             haruButton.addActionListener(e -> HARU.main(args));
 
-            JButton HIDEButton = new JButton("Hide's Sugoroku Game");
+            JButton HIDEButton = new JButton("Hideaki's Sugoroku Game");
             HIDEButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            HIDEButton.addActionListener(e -> HIDEAKI.DiceGame.main(args));
+            HIDEButton.addActionListener(e -> HIDEAKI.main(args));
 
 
             //Add buttons to panel

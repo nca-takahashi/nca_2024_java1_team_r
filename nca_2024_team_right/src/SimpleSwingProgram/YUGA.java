@@ -1,17 +1,11 @@
-
 package SimpleSwingProgram;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 public class YUGA {
     public static void main() {
@@ -23,66 +17,63 @@ public class YUGA {
 
     public static class SimpleMazeGame extends JFrame {
         private static final int CELL_SIZE = 40; // セルのサイズ
+        private final int[][][] stages = { // ステージごとの迷路データ
+                {
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+                        {1, 0, 1, 1, 0, 1, 0, 1, 0, 1},
+                        {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+                        {1, 0, 1, 0, 0, 1, 1, 1, 0, 1},
+                        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                        {1, 1, 0, 1, 1, 0, 1, 1, 1, 1},
+                        {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+                        {1, 0, 1, 0, 1, 1, 1, 1, 0, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+                },
+                {
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1},
+                        {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1},
+                        {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+                        {1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1},
+                        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+                },
+                {
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
+                        {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
+                        {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+                        {1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1},
+                        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                        {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                        {1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+                },
+                {
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+                        {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
+                        {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1},
+                        {1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1},
+                        {1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
+                        {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                        {1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+                }
+        };
         private int ROWS; // 行数（ステージごとに変化）
         private int COLS; // 列数（ステージごとに変化）
-
         private int playerRow = 1; // プレイヤーの初期行位置
         private int playerCol = 1; // プレイヤーの初期列位置
-        private boolean reversedControls = false; // 操作反転フラグ
-        private ArrayList<Point> traps = new ArrayList<>(); // トラップ位置
-        private ArrayList<Point> items = new ArrayList<>(); // アイテム位置
+        private final boolean reversedControls = false; // 操作反転フラグ
+        private final ArrayList<Point> traps = new ArrayList<>(); // トラップ位置
+        private final ArrayList<Point> items = new ArrayList<>(); // アイテム位置
         private int itemsCollected = 0; // 収集済みアイテム数
-
         private int[][] maze; // 現在の迷路
         private int currentStage = 0; // 現在のステージ
-
-        private final int[][][] stages = { // ステージごとの迷路データ
-            {
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-                {1, 0, 1, 1, 0, 1, 0, 1, 0, 1},
-                {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
-                {1, 0, 1, 0, 0, 1, 1, 1, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 1, 0, 1, 1, 0, 1, 1, 1, 1},
-                {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                {1, 0, 1, 0, 1, 1, 1, 1, 0, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-            },
-            {
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1},
-                {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1},
-                {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-                {1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-            },
-            {
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
-                {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-                {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-                {1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-                {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-            },
-            {
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1},
-                {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-                {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1},
-                {1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1},
-                {1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
-                {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-            }
-        };
 
         public SimpleMazeGame() {
             setTitle("Simple Maze Game");
@@ -92,7 +83,8 @@ public class YUGA {
 
             addKeyListener(new KeyListener() {
                 @Override
-                public void keyTyped(KeyEvent e) {}
+                public void keyTyped(KeyEvent e) {
+                }
 
                 @Override
                 public void keyPressed(KeyEvent e) {
@@ -125,7 +117,8 @@ public class YUGA {
                 }
 
                 @Override
-                public void keyReleased(KeyEvent e) {}
+                public void keyReleased(KeyEvent e) {
+                }
             });
         }
 
@@ -170,7 +163,7 @@ public class YUGA {
             }
 
             // ウィンドウサイズを迷路に合わせる
-            setSize(COLS * CELL_SIZE + getInsets().left + getInsets().right, 
+            setSize(COLS * CELL_SIZE + getInsets().left + getInsets().right,
                     ROWS * CELL_SIZE + getInsets().top + getInsets().bottom);
         }
 

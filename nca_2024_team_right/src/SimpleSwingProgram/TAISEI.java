@@ -1,31 +1,22 @@
 package SimpleSwingProgram;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
-
 public class TAISEI extends JFrame {
 
-    private JLabel scoreLabel;
-    private JLabel timerLabel;
+    private final JLabel scoreLabel;
+    private final JLabel timerLabel;
     private int score = 0;
     private Point targetPosition;
     private int targetDiameter = 60; // 初期値を変更
     private boolean gameOver = false;
     private int remainingTime = 10;
     private Timer gameTimer;
-    private JPanel gamePanel;
-    private JButton startButton;
+    private final JPanel gamePanel;
+    private final JButton startButton;
 
     public TAISEI() {
         setTitle("Target game");
@@ -108,6 +99,10 @@ public class TAISEI extends JFrame {
         setVisible(true);
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new TAISEI()); // SwingのスレッドでGUIを作成
+    }
+
     private void spawnTarget() {
         int x = (int) (Math.random() * (gamePanel.getWidth() - targetDiameter)); // gamePanelの幅を使用
         int y = (int) (Math.random() * (gamePanel.getHeight() - targetDiameter)); // gamePanelの高さを使用
@@ -133,9 +128,5 @@ public class TAISEI extends JFrame {
         startButton.setVisible(false);
         timerLabel.setText("Time: " + remainingTime); // タイマー表示を更新
         scoreLabel.setText("Score: " + score); // スコア表示を更新
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new TAISEI()); // SwingのスレッドでGUIを作成
     }
 }
