@@ -39,6 +39,7 @@ public class Main {
             JButton clickButton = createButton("Taisei's Clicking Game", e -> TAISEI.main(args));
             JButton haruButton = createButton("Haru's Subscribing Button", e -> HARU.main(args));
             JButton HIDEButton = createButton("Hideaki's Sugoroku Game", e -> HIDEAKI.main(args));
+            JButton IBUKIButton = createButton("Ibuki's Quiz Game", e -> IBUKI.main(args));
 
             panel1.add(button);
             panel1.add(clockButton);
@@ -57,6 +58,8 @@ public class Main {
             panel2.add(haruButton);
             panel2.add(Box.createRigidArea(new Dimension(10, 20)));
             panel2.add(HIDEButton);
+            panel2.add(Box.createRigidArea(new Dimension(10, 20)));
+            panel2.add(IBUKIButton);
 
             mainPanel.add(panel1);
             mainPanel.add(panel2);
