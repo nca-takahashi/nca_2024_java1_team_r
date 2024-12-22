@@ -4,49 +4,57 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class HARU {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Centered Button in Button");
+            JFrame frame = new JFrame("Haru's Buttons");
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setLayout(new FlowLayout());
 
-            JButton outerButton = new JButton("Outer");
-            outerButton.setPreferredSize(new Dimension(200, 100));
+            // Create the fake button panel
+            JPanel fakeButtonPanel = new JPanel(new BorderLayout());
+            fakeButtonPanel.setPreferredSize(new Dimension(200, 100));
+            fakeButtonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-            JPanel buttonPanel = new JPanel(new BorderLayout());
-            buttonPanel.setPreferredSize(outerButton.getPreferredSize());
-            buttonPanel.setBorder(outerButton.getBorder());
-            buttonPanel.setOpaque(false);
+            JLabel fakeButtonLabel = new JLabel("Click Me!(advertisement)");
+            fakeButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            fakeButtonPanel.add(fakeButtonLabel, BorderLayout.CENTER);
 
-            JButton innerButton = new JButton("X");
-            innerButton.setPreferredSize(new Dimension(30, 30)); // Set smaller preferred size for inner button
-            innerButton.setFont(new Font("Arial", Font.BOLD, 16)); // Optionally, adjust font size
-
-            JPanel innerButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-            innerButtonPanel.add(innerButton);
-            innerButtonPanel.setOpaque(false);
-
-            buttonPanel.add(innerButtonPanel, BorderLayout.CENTER);
-
-            buttonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    if (!innerButton.getBounds().contains(evt.getPoint())) {
-                        JOptionPane.showMessageDialog(frame, "Outer area Clicked!");
+            fakeButtonPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getButton() == MouseEvent.BUTTON1) {
+                        JOptionPane.showMessageDialog(frame, "Thank you for clicking the fake button!");
                     }
                 }
             });
 
-            innerButton.addActionListener(new ActionListener() {
+            JPanel realButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Use FlowLayout.RIGHT
+            realButtonPanel.setOpaque(false); // Make the panel transparent
+            JButton haruButton = new JButton("X");
+            haruButton.setPreferredSize(new Dimension(20, 20));
+            haruButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(frame, "Inner Button Clicked!");
+                    JOptionPane.showMessageDialog(frame, "Thank you for clicking Haru's real button!");
+                    Window window = SwingUtilities.getWindowAncestor(haruButton);
+                    if (window != null) {
+                        window.dispose();
+                    }
                 }
             });
+            realButtonPanel.add(haruButton);
 
-            frame.add(buttonPanel);
+            // Add the real button panel to the fake button panel's NORTH position
+            fakeButtonPanel.add(realButtonPanel, BorderLayout.NORTH);
+
+            // Add the fake button panel to the frame
+            frame.add(fakeButtonPanel);
+
             frame.pack();
             frame.setVisible(true);
         });
