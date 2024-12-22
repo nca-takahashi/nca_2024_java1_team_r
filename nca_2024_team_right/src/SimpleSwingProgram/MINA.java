@@ -8,7 +8,7 @@ public class MINA extends JFrame { // Use lowercase class name
 
     public MINA(String title) {
         setTitle(title);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JPanel panel = new JPanel();
 
         // Load and display the image
