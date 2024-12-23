@@ -1,124 +1,159 @@
-package SimpleSwingProgram; // Replace with your desired package name
+package SimpleSwingProgram;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
 import java.net.URL;
+import java.util.List;
+import java.util.*;
 
-public class MINA extends JFrame { // Use lowercase class name
+public class MINA {
 
-    public MINA(String title) {
-        setTitle(title);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JPanel panel = new JPanel();
+    private static final int MAX_WIDTH = 400; // Smaller maximum width for images
+    private static final int MAX_HEIGHT = 300; // Smaller maximum height for images
+    private final List<String> imagePaths = new ArrayList<>(); // Stores image paths
+    private final Random random = new Random();
+    private int openWindows = 0; // Counter for open windows
 
-        // Load and display the image
-        URL imageURL = getClass().getClassLoader().getResource("resources/A.png");
-        if (imageURL != null) {
-            ImageIcon image = new ImageIcon(imageURL);
-            JLabel imageLabel = new JLabel(image);
-            panel.add(imageLabel);
+    public MINA() {
+        // Load image paths from resources folder
+        loadImagesFromResources();
+
+        // Randomly shuffle image paths
+        Collections.shuffle(imagePaths);
+
+        // Display each image in a separate window
+        displayImages();
+    }
+
+    public static void main(String[] args) {
+        new MINA();
+    }
+
+    private void loadImagesFromResources() {
+        URL folderURL = getClass().getClassLoader().getResource("resources");
+        if (folderURL != null) {
+            File folder = new File(folderURL.getPath());
+            for (File file : Objects.requireNonNull(folder.listFiles())) {
+                if (file.isFile() && isImageFile(file)) {
+                    imagePaths.add("resources" + "/" + file.getName());
+                }
+            }
         } else {
-            System.out.println("Error: Image not found!");
-        }
-
-
-// Load and display the image
-        URL imageURL1 = getClass().getClassLoader().getResource("resources/B.png");
-        if (imageURL1 != null) {
-            ImageIcon image = new ImageIcon(imageURL1);
-            JLabel imageLabel = new JLabel(image);
-            panel.add(imageLabel);
-        } else {
-            System.out.println("Error: Image not found!");
-        }
-
-//Load and display the image
-        URL imageURL2 = getClass().getClassLoader().getResource("resources/C.png");
-        if (imageURL2 != null) {
-            ImageIcon image = new ImageIcon(imageURL2);
-            JLabel imageLabel = new JLabel(image);
-            panel.add(imageLabel);
-        } else {
-            System.out.println("Error: Image not found!");
-        }
-
-//Load and display the image
-        URL imageURL3 = getClass().getClassLoader().getResource("resources/D.png");
-        if (imageURL3 != null) {
-            ImageIcon image = new ImageIcon(imageURL3);
-            JLabel imageLabel = new JLabel(image);
-            panel.add(imageLabel);
-        } else {
-            System.out.println("Error: Image not found!");
-        }
-
-//Load and display the image
-        URL imageURL4 = getClass().getClassLoader().getResource("resources/b.png");
-        if (imageURL4 != null) {
-            ImageIcon image = new ImageIcon(imageURL4);
-            JLabel imageLabel = new JLabel(image);
-            panel.add(imageLabel);
-        } else {
-            System.out.println("Error: Image not found!");
-        }
-
-//Load and display the image
-        URL imageURL5 = getClass().getClassLoader().getResource("resources/b.png");
-        if (imageURL5 != null) {
-            ImageIcon image = new ImageIcon(imageURL5);
-            JLabel imageLabel = new JLabel(image);
-            panel.add(imageLabel);
-        } else {
-            System.out.println("Error: Image not found!");
-        }
-
-//Load and display the image
-        URL imageURL6 = getClass().getClassLoader().getResource("resources/b.png");
-        if (imageURL6 != null) {
-            ImageIcon image = new ImageIcon(imageURL6);
-            JLabel imageLabel = new JLabel(image);
-            panel.add(imageLabel);
-        } else {
-            System.out.println("Error: Image not found!");
-        }
-
-
-//Load and display the image
-        URL imageURL7 = getClass().getClassLoader().getResource("resources/b.png");
-        if (imageURL7 != null) {
-            ImageIcon image = new ImageIcon(imageURL7);
-            JLabel imageLabel = new JLabel(image);
-            panel.add(imageLabel);
-        } else {
-            System.out.println("Error: Image not found!");
-        }
-
-//Load and display the image
-        URL imageURL8 = getClass().getClassLoader().getResource("resources/b.png");
-        if (imageURL8 != null) {
-            ImageIcon image = new ImageIcon(imageURL8);
-            JLabel imageLabel = new JLabel(image);
-            panel.add(imageLabel);
-        } else {
-            System.out.println("Error: Image not found!");
-        }
-
-//Load and display the image
-        URL imageURL9 = getClass().getClassLoader().getResource("resources/b.png");
-        if (imageURL9 != null) {
-            ImageIcon image = new ImageIcon(imageURL9);
-            JLabel imageLabel = new JLabel(image);
-            panel.add(imageLabel);
-        } else {
-            System.out.println("Error: Image not found!");
+            System.out.println("Error: Resources folder not found!");
         }
     }
 
-    public static void main(String[] args) { // Use String[] args for main method
-        MINA frame = new MINA("MyTitle");
-        frame.setSize(new Dimension(728, 400)); // Use setSize instead of setBounds
-        frame.setVisible(true);
+    private boolean isImageFile(File file) {
+        String extension = getExtension(file);
+        return extension != null && (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png") || extension.equalsIgnoreCase("gif"));
+    }
+
+    private String getExtension(File file) {
+        String fileName = file.getName();
+        int dotPos = fileName.lastIndexOf('.');
+        if (dotPos >= 0) {
+            return fileName.substring(dotPos + 1);
+        }
+        return null;
+    }
+
+    private void displayImages() {
+        for (String imagePath : imagePaths) {
+            displayImageInWindow(imagePath);
+        }
+    }
+
+    private void displayImageInWindow(String imagePath) {
+        URL imageURL = getClass().getClassLoader().getResource(imagePath);
+        if (imageURL != null) {
+            ImageIcon imageIcon = new ImageIcon(imageURL);
+            Image image = imageIcon.getImage();
+
+            // Resize image if it exceeds the smaller maximum dimensions
+            if (image.getWidth(null) > MAX_WIDTH || image.getHeight(null) > MAX_HEIGHT) {
+                image = image.getScaledInstance(MAX_WIDTH, MAX_HEIGHT, Image.SCALE_SMOOTH);
+                imageIcon = new ImageIcon(image);
+            }
+
+            JFrame imageFrame = new JFrame();
+            imageFrame.setUndecorated(true);
+            imageFrame.setLayout(new BorderLayout());
+
+            JLabel imageLabel = new JLabel(imageIcon);
+            JLayeredPane layeredPane = new JLayeredPane();
+            layeredPane.setPreferredSize(new Dimension(imageIcon.getIconWidth(), imageIcon.getIconHeight()));
+
+            imageLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+            layeredPane.add(imageLabel, JLayeredPane.DEFAULT_LAYER);
+
+            // Create close button
+            JButton closeButton = new JButton("X");
+            closeButton.setBounds(imageIcon.getIconWidth() - 20, 0, 20, 20);
+            closeButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    imageFrame.dispose();
+                }
+            });
+            layeredPane.add(closeButton, JLayeredPane.PALETTE_LAYER);
+
+            // Add mouse listener to open more windows if clicked outside the close button
+            layeredPane.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (!closeButton.getBounds().contains(e.getPoint())) {
+                        for (int i = 0; i < 3; i++) { // Open 3 new windows on misclick
+                            displayImageInWindow(imagePath);
+                        }
+                        playAnnoyingSound();
+                    }
+                }
+            });
+
+            imageFrame.add(layeredPane, BorderLayout.CENTER);
+            imageFrame.pack();
+
+            // Set random location
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = random.nextInt(screenSize.width - imageFrame.getWidth());
+            int y = random.nextInt(screenSize.height - imageFrame.getHeight());
+            imageFrame.setLocation(x, y);
+
+            // Randomly change the position of the close button
+            closeButton.setBounds(random.nextInt(imageIcon.getIconWidth() - 20), random.nextInt(imageIcon.getIconHeight() - 20), 20, 20);
+
+            imageFrame.setVisible(true);
+
+            // Increment the counter when a window is opened
+            openWindows++;
+
+            // Add window listener to reopen the window if closed without clicking the close button
+            imageFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    displayImageInWindow(imagePath);
+                    imageFrame.dispose();
+                }
+
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    // Decrement the counter when a window is closed
+                    openWindows--;
+                    if (openWindows == 0) {
+                        // Show dialog when all windows are closed
+                        JOptionPane.showMessageDialog(null, "All windows are closed!");
+                    }
+                }
+            });
+        } else {
+            System.out.println("Error: Image not found: " + imagePath);
+        }
+    }
+
+    private void playAnnoyingSound() {
+        // Play a sound (this is a placeholder, you need to add actual sound playing code)
+        Toolkit.getDefaultToolkit().beep();
     }
 }
-
-

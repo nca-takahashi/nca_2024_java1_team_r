@@ -27,6 +27,9 @@ public class Main {
             JLabel label = new JLabel("Hello, Java Swing!");
             label.setAlignmentX(Component.CENTER_ALIGNMENT);
             panel1.add(label);
+            JLabel label2 = new JLabel("Welcome to our team's project!");
+            label2.setAlignmentX(Component.CENTER_ALIGNMENT);
+            panel1.add(label2);
 
             JButton button = createButton("Click me!", e -> label.setText("Button clicked!"));
             JButton clockButton = createButton("Digital Clock", e -> showDigitalClock());
@@ -34,7 +37,7 @@ public class Main {
             JButton colorButton = createButton("Change Color (Check border)", e -> changeColors(window, mainPanel, panel1, panel2));
             JButton infinityButton = createButton("Infinity Window", e -> showInfinityWindow());
             JButton calculatorButton = createButton("Simple Calculator", e -> showCalculator());
-            JButton mazeButton = createButton("Yuga's maze game", e -> YUGA.main());
+            JButton mazeButton = createButton("Yuga's maze game", e -> YUGA.main(args));
             JButton adButton = createButton("Mina's Ad Closing game", e -> MINA.main(args));
             JButton clickButton = createButton("Taisei's Clicking Game", e -> TAISEI.main(args));
             JButton haruButton = createButton("Haru's Subscribing Button", e -> HARU.main(args));
@@ -185,7 +188,7 @@ public class Main {
             String operation = operationField.getText();
             double secondNumber = Double.parseDouble(secondField.getText());
 
-            double result = 0;
+            double result;
             switch (operation) {
                 case "+":
                     result = firstNumber + secondNumber;

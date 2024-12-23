@@ -9,14 +9,14 @@ public class TAISEI extends JFrame {
 
     private final JLabel scoreLabel;
     private final JLabel timerLabel;
+    private final JPanel gamePanel;
+    private final JButton startButton;
     private int score = 0;
     private Point targetPosition;
     private int targetDiameter = 60; // 初期値を変更
     private boolean gameOver = false;
     private int remainingTime = 10;
     private Timer gameTimer;
-    private final JPanel gamePanel;
-    private final JButton startButton;
 
     public TAISEI() {
         setTitle("Target game");
@@ -100,7 +100,7 @@ public class TAISEI extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new TAISEI()); // SwingのスレッドでGUIを作成
+        SwingUtilities.invokeLater(TAISEI::new); // SwingのスレッドでGUIを作成
     }
 
     private void spawnTarget() {

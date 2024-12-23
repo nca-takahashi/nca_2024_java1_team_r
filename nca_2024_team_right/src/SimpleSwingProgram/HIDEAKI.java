@@ -6,15 +6,14 @@ import java.util.Random;
 
 public class HIDEAKI extends JFrame {
 
-    private int player1Position = 0;
-    private int player2Position = 0;
-    private int currentPlayer = 1; // 1: プレイヤー1, 2: プレイヤー2
-    private int rollCount = 0;
-
     private final JLabel player1Label;
     private final JLabel player2Label;
     private final JLabel messageLabel;
     private final JButton rollButton;
+    private int player1Position = 0;
+    private int player2Position = 0;
+    private int currentPlayer = 1; // 1: プレイヤー1, 2: プレイヤー2
+    private int rollCount = 0;
 
     public HIDEAKI() {
         setTitle("すごろくゲーム");

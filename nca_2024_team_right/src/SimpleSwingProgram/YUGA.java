@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class YUGA {
-    public static void main() {
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             SimpleMazeGame game = new SimpleMazeGame();
             game.setVisible(true);
@@ -64,13 +64,13 @@ public class YUGA {
                         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
                 }
         };
+        private final boolean reversedControls = false; // 操作反転フラグ
+        private final ArrayList<Point> traps = new ArrayList<>(); // トラップ位置
+        private final ArrayList<Point> items = new ArrayList<>(); // アイテム位置
         private int ROWS; // 行数（ステージごとに変化）
         private int COLS; // 列数（ステージごとに変化）
         private int playerRow = 1; // プレイヤーの初期行位置
         private int playerCol = 1; // プレイヤーの初期列位置
-        private final boolean reversedControls = false; // 操作反転フラグ
-        private final ArrayList<Point> traps = new ArrayList<>(); // トラップ位置
-        private final ArrayList<Point> items = new ArrayList<>(); // アイテム位置
         private int itemsCollected = 0; // 収集済みアイテム数
         private int[][] maze; // 現在の迷路
         private int currentStage = 0; // 現在のステージ
