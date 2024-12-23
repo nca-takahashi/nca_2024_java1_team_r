@@ -10,10 +10,13 @@ public class HIDEAKI extends JFrame {
     private final JLabel player2Label;
     private final JLabel messageLabel;
     private final JButton rollButton;
+    private final JProgressBar player1ProgressBar;
+    private final JProgressBar player2ProgressBar;
     private int player1Position = 0;
     private int player2Position = 0;
     private int currentPlayer = 1; // 1: プレイヤー1, 2: プレイヤー2
     private int rollCount = 0;
+    private static final int WINNING_POSITION = 100;
 
     public HIDEAKI() {
         setTitle("すごろくゲーム");
@@ -26,15 +29,21 @@ public class HIDEAKI extends JFrame {
         player2Label = new JLabel("プレイヤー2: 0");
         messageLabel = new JLabel("プレイヤー1の番です");
 
+        // プログレスバーの作成
+        player1ProgressBar = new JProgressBar(0, WINNING_POSITION);
+        player2ProgressBar = new JProgressBar(0, WINNING_POSITION);
+
         // ボタンの作成
         rollButton = new JButton("サイコロを振る");
         rollButton.addActionListener(e -> rollDice());
 
         // パネルにコンポーネントを追加
         JPanel topPanel = new JPanel();
-        topPanel.setLayout(new GridLayout(2, 1)); // 2行1列のGridLayout
+        topPanel.setLayout(new GridLayout(4, 1)); // 4行1列のGridLayout
         topPanel.add(player1Label);
+        topPanel.add(player1ProgressBar);
         topPanel.add(player2Label);
+        topPanel.add(player2ProgressBar);
 
         add(topPanel, BorderLayout.NORTH);
         add(messageLabel, BorderLayout.CENTER);
@@ -53,16 +62,30 @@ public class HIDEAKI extends JFrame {
         int totalRoll = diceRoll1 + diceRoll2;
         rollCount++;
 
+        Random random = new Random();
+        boolean moveBackward = random.nextInt(4) == 0; // 25% chance to move backward
 
         if (currentPlayer == 1) {
-            player1Position += totalRoll;
+            if (moveBackward) {
+                player1Position = Math.max(0, player1Position - totalRoll / 2); // Move backward by half the roll
+                messageLabel.setText("プレイヤー1が" + totalRoll / 2 + "マス戻った！");
+            } else {
+                player1Position += totalRoll;
+                messageLabel.setText("プレイヤー2の番です");
+            }
             player1Label.setText("プレイヤー1: " + player1Position);
-            messageLabel.setText("プレイヤー2の番です");
+            player1ProgressBar.setValue(player1Position);
             currentPlayer = 2;
         } else {
-            player2Position += totalRoll;
+            if (moveBackward) {
+                player2Position = Math.max(0, player2Position - totalRoll / 2); // Move backward by half the roll
+                messageLabel.setText("プレイヤー2が" + totalRoll / 2 + "マス戻った！");
+            } else {
+                player2Position += totalRoll;
+                messageLabel.setText("プレイヤー1の番です");
+            }
             player2Label.setText("プレイヤー2: " + player2Position);
-            messageLabel.setText("プレイヤー1の番です");
+            player2ProgressBar.setValue(player2Position);
             currentPlayer = 1;
         }
 
@@ -73,10 +96,10 @@ public class HIDEAKI extends JFrame {
     }
 
     private void checkWin() {
-        if (player1Position >= 100) {
+        if (player1Position >= WINNING_POSITION) {
             JOptionPane.showMessageDialog(this, "プレイヤー1の勝利！" + rollCount + "回でクリア！");
             resetGame();
-        } else if (player2Position >= 100) {
+        } else if (player2Position >= WINNING_POSITION) {
             JOptionPane.showMessageDialog(this, "プレイヤー2の勝利！" + rollCount + "回でクリア！");
             resetGame();
         }
@@ -89,11 +112,13 @@ public class HIDEAKI extends JFrame {
         rollCount = 0;
         player1Label.setText("プレイヤー1: 0");
         player2Label.setText("プレイヤー2: 0");
+        player1ProgressBar.setValue(0);
+        player2ProgressBar.setValue(0);
         messageLabel.setText("プレイヤー1の番です");
     }
 
     private int rollDiceValue() {
         Random random = new Random();
-        return random.nextInt(6) + 1;
+        return random.nextInt(6) + 1; // Generates a value between 1 and 6
     }
 }
