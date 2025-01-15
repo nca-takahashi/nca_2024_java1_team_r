@@ -143,6 +143,7 @@ public class TAISEI extends JFrame {
         double distance = Math.sqrt(Math.pow(clickPoint.x - centerX, 2) + Math.pow(clickPoint.y - centerY, 2));
         return distance <= radius;
     }
+    
 
     private void startGame() {
         score = 0;
