@@ -107,7 +107,7 @@ public class MINA {
 
             // Create close button
             JButton closeButton = new JButton("X");
-            closeButton.setBounds(imageIcon.getIconWidth() - 5, 0, 5, 5);
+            closeButton.setBounds(imageIcon.getIconWidth() - 4, 0, 4, 4);
             closeButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -139,7 +139,7 @@ public class MINA {
             imageFrame.setLocation(x, y);
 
             // Randomly change the position of the close button
-            closeButton.setBounds(random.nextInt(imageIcon.getIconWidth() - 5), random.nextInt(imageIcon.getIconHeight() - 5), 5, 5);
+            closeButton.setBounds(random.nextInt(imageIcon.getIconWidth() - 4), random.nextInt(imageIcon.getIconHeight() - 4), 4, 4);
 
             imageFrame.setVisible(true);
 
