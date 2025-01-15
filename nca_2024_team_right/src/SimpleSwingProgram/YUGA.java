@@ -1,11 +1,15 @@
 package SimpleSwingProgram;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Random;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class YUGA {
     public static void main(String[] args) {
@@ -21,19 +25,19 @@ public class YUGA {
                 {
                         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                         {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-                        {1, 0, 1, 1, 0, 1, 0, 1, 0, 1},
+                        {1, 0, 1, 1, 0, 1, 0, 0, 0, 1},
                         {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
                         {1, 0, 1, 0, 0, 1, 1, 1, 0, 1},
                         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                         {1, 1, 0, 1, 1, 0, 1, 1, 1, 1},
                         {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-                        {1, 0, 1, 0, 1, 1, 1, 1, 0, 1},
+                        {1, 0, 0, 0, 1, 1, 1, 1, 0, 1},
                         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
                 },
                 {
                         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                         {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1},
-                        {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1},
+                        {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
                         {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
                         {1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1},
                         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -42,7 +46,7 @@ public class YUGA {
                 {
                         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                         {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
-                        {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
+                        {1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1},
                         {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
                         {1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1},
                         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
@@ -54,11 +58,11 @@ public class YUGA {
                 {
                         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                         {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1},
-                        {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
+                        {1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1},
                         {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1},
                         {1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1},
-                        {1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
-                        {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
+                        {1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1},
                         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                         {1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
                         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
@@ -132,23 +136,43 @@ public class YUGA {
             traps.clear();
             items.clear();
 
-            // ステージごとのトラップとアイテムを設定
+          // ステージごとのトラップとアイテムを設定
             if (stageIndex == 0) {
                 traps.add(new Point(4, 4));
+                traps.add(new Point(8, 2));
                 traps.add(new Point(2, 7)); // 追加したトラップ
-                addItemToMaze(); // アイテムを追加
+                items.add(new Point(2, 8));
+                items.add(new Point(8, 1));
+                
             } else if (stageIndex == 1) {
                 traps.add(new Point(2, 5));
-                traps.add(new Point(5, 3)); // 追加したトラップ
-                addItemToMaze(); // アイテムを追加
+                traps.add(new Point(2, 10));
+                traps.add(new Point(5, 2));
+                items.add(new Point(1, 10));
+                items.add(new Point(5, 3));// 追加したトラップ
+               
             } else if (stageIndex == 2) {
                 traps.add(new Point(4, 6));
-                traps.add(new Point(1, 9)); // 追加したトラップ
-                addItemToMaze(); // アイテムを追加
+                traps.add(new Point(1, 9));
+                traps.add(new Point(2, 6));
+                traps.add(new Point(8, 1));// 追加したトラップ
+                items.add(new Point(1, 10));
+                items.add(new Point(1, 6));
+                items.add(new Point(5, 3));
             } else if (stageIndex == 3) {
                 traps.add(new Point(5, 4));
-                traps.add(new Point(8, 2)); // 追加したトラップ
-                addItemToMaze(); // アイテムを追加
+                traps.add(new Point(7, 9));
+                traps.add(new Point(8, 2));
+                traps.add(new Point(2, 10));
+                traps.add(new Point(2, 1));
+                traps.add(new Point(8, 11));
+                traps.add(new Point(3, 10));
+                traps.add(new Point(2, 6));// 追加したトラップ
+                items.add(new Point(5, 3));
+                items.add(new Point(3, 9));
+                items.add(new Point(1, 7));
+                items.add(new Point(3, 1));
+                
             }
 
             // ゴール位置を設定（ステージごとに異なる位置）
@@ -167,18 +191,6 @@ public class YUGA {
                     ROWS * CELL_SIZE + getInsets().top + getInsets().bottom);
         }
 
-        private void addItemToMaze() {
-            Random random = new Random();
-            int itemRow, itemCol;
-
-            // アイテムをランダムに配置
-            do {
-                itemRow = random.nextInt(ROWS);
-                itemCol = random.nextInt(COLS);
-            } while (maze[itemRow][itemCol] == 1 || (itemRow == playerRow && itemCol == playerCol)); // アイテムが壁かプレイヤーと重ならないようにする
-
-            items.add(new Point(itemRow, itemCol));
-        }
 
         private void checkTrapCollision() {
             for (Point trap : traps) {
