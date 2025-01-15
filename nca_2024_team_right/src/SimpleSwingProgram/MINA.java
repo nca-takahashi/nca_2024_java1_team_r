@@ -1,12 +1,29 @@
 package SimpleSwingProgram;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.*;
+import java.util.Objects;
+import java.util.Random;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 
 public class MINA {
 
@@ -90,7 +107,7 @@ public class MINA {
 
             // Create close button
             JButton closeButton = new JButton("X");
-            closeButton.setBounds(imageIcon.getIconWidth() - 20, 0, 20, 20);
+            closeButton.setBounds(imageIcon.getIconWidth() - 5, 0, 5, 5);
             closeButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -122,7 +139,7 @@ public class MINA {
             imageFrame.setLocation(x, y);
 
             // Randomly change the position of the close button
-            closeButton.setBounds(random.nextInt(imageIcon.getIconWidth() - 20), random.nextInt(imageIcon.getIconHeight() - 20), 20, 20);
+            closeButton.setBounds(random.nextInt(imageIcon.getIconWidth() - 5), random.nextInt(imageIcon.getIconHeight() - 5), 5, 5);
 
             imageFrame.setVisible(true);
 

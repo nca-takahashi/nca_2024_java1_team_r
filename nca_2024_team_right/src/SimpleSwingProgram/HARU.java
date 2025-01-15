@@ -1,11 +1,24 @@
 package SimpleSwingProgram;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 public class HARU {
 
@@ -28,7 +41,7 @@ public class HARU {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (e.getButton() == MouseEvent.BUTTON1) {
-                        JOptionPane.showMessageDialog(frame, "Thank you for clicking the fake button!");
+                        JOptionPane.showMessageDialog(frame, "登録されました");
                     }
                 }
             });
@@ -36,17 +49,22 @@ public class HARU {
             JPanel realButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Use FlowLayout.RIGHT
             realButtonPanel.setOpaque(false); // Make the panel transparent
             JButton haruButton = new JButton("X");
-            haruButton.setPreferredSize(new Dimension(20, 20));
+            haruButton.setPreferredSize(new Dimension(2, 2));
             haruButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(frame, "Thank you for clicking Haru's real button!");
+                    JOptionPane.showMessageDialog(frame, "クリア！");
                     Window window = SwingUtilities.getWindowAncestor(haruButton);
                     if (window != null) {
                         window.dispose();
                     }
                 }
             });
+            
+            fakeButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            
+            realButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            
             realButtonPanel.add(haruButton);
 
             // Add the real button panel to the fake button panel's NORTH position
