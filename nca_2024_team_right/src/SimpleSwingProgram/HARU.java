@@ -26,14 +26,13 @@ public class HARU {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Haru's Buttons");
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.setLayout(new FlowLayout());
+            frame.setLayout(new BorderLayout()); // Use BorderLayout for the frame layout
 
             // Create the fake button panel
             JPanel fakeButtonPanel = new JPanel(new BorderLayout());
-            fakeButtonPanel.setPreferredSize(new Dimension(200, 100));
             fakeButtonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-            JLabel fakeButtonLabel = new JLabel("Click Me!(advertisement)");
+            JLabel fakeButtonLabel = new JLabel("Click Me!");
             fakeButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
             fakeButtonPanel.add(fakeButtonLabel, BorderLayout.CENTER);
 
@@ -49,7 +48,7 @@ public class HARU {
             JPanel realButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Use FlowLayout.RIGHT
             realButtonPanel.setOpaque(false); // Make the panel transparent
             JButton haruButton = new JButton("X");
-            haruButton.setPreferredSize(new Dimension(2, 2));
+            haruButton.setPreferredSize(new Dimension(5, 5)); // Adjust the button size
             haruButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -60,21 +59,20 @@ public class HARU {
                     }
                 }
             });
-            
+
             fakeButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            
             realButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            
             realButtonPanel.add(haruButton);
 
             // Add the real button panel to the fake button panel's NORTH position
             fakeButtonPanel.add(realButtonPanel, BorderLayout.NORTH);
 
             // Add the fake button panel to the frame
-            frame.add(fakeButtonPanel);
+            frame.add(fakeButtonPanel, BorderLayout.CENTER);
 
-            frame.pack();
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Start in full-screen mode
             frame.setVisible(true);
         });
     }
 }
+
