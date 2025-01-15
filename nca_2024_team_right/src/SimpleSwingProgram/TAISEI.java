@@ -1,22 +1,31 @@
 package SimpleSwingProgram;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TAISEI extends JFrame {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
-    private final JLabel scoreLabel;
-    private final JLabel timerLabel;
-    private final JPanel gamePanel;
-    private final JButton startButton;
+public class TAISEI extends JFrame {
     private int score = 0;
-    private Point targetPosition;
-    private int targetDiameter = 60; // 初期値を変更
-    private boolean gameOver = false;
     private int remainingTime = 10;
+    private boolean gameOver = false;
+    private int targetDiameter = 60;
+    private Point targetPosition = null;
     private Timer gameTimer;
+    private JLabel scoreLabel, timerLabel;
+    private JButton startButton;
+    private JPanel gamePanel;
 
     public TAISEI() {
         setTitle("Target game");
@@ -24,12 +33,12 @@ public class TAISEI extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // DISPOSE_ON_CLOSE
         setLayout(null);
 
-        scoreLabel = new JLabel("Score: 0", JLabel.LEFT); // "score"を"Score:"に変更
+        scoreLabel = new JLabel("Score: 0", JLabel.LEFT);
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         scoreLabel.setBounds(10, 10, 200, 30);
         add(scoreLabel);
 
-        timerLabel = new JLabel("Time: 10", JLabel.RIGHT); // "time limit"を"Time:"に変更
+        timerLabel = new JLabel("Time: 10", JLabel.RIGHT);
         timerLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         timerLabel.setBounds(getWidth() - 230, 10, 200, 30);
         add(timerLabel);
@@ -43,15 +52,21 @@ public class TAISEI extends JFrame {
 
                 if (gameOver) {
                     g.setColor(Color.BLACK);
-                    g.setFont(new Font("Arial", Font.BOLD, 48)); // フォントを大きく、太字に
+                    g.setFont(new Font("Arial", Font.BOLD, 48));
                     String gameOverMessage = "Game Over";
                     String scoreMessage = "Your Score: " + score;
+                    String restartMessage = "Press ENTER to Restart";
+                    
 
-                    // メッセージを中央に描画
                     int gameOverWidth = g.getFontMetrics().stringWidth(gameOverMessage);
                     int scoreWidth = g.getFontMetrics().stringWidth(scoreMessage);
-                    g.drawString(gameOverMessage, getWidth() / 2 - gameOverWidth / 2, getHeight() / 2 - 50);
-                    g.drawString(scoreMessage, getWidth() / 2 - scoreWidth / 2, getHeight() / 2 + 50);
+                    int restartMessageWidth = g.getFontMetrics().stringWidth(restartMessage);
+                    int totalHeight = 50 + 50 + 50;  // 各メッセージ間の余白を含めた高さ
+                    int startY = (getHeight() - totalHeight) / 2;
+                    g.drawString(gameOverMessage, getWidth() / 2 - gameOverWidth / 2, startY); // ゲームオーバーメッセージ
+                    g.drawString(scoreMessage, getWidth() / 2 - scoreWidth / 2, startY + 50);  // スコアメッセージ
+                    g.drawString(restartMessage, getWidth() / 2 - restartMessageWidth / 2, startY + 100); // リスタートメッセージ
+
                     return;
                 }
 
@@ -62,11 +77,12 @@ public class TAISEI extends JFrame {
             }
         };
         gamePanel.setBounds(0, 0, getWidth(), getHeight());
+        gamePanel.setFocusable(true); // フォーカスを有効にしてキーボード入力を受け付ける
         add(gamePanel);
 
-        startButton = new JButton("Start Game"); // "game start"を"Start Game"に変更
-        startButton.setFont(new Font("Arial", Font.BOLD, 32)); // ボタンのフォントを大きく、太字に
-        startButton.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 25, 200, 50); // ボタンの位置を調整
+        startButton = new JButton("Start Game");
+        startButton.setFont(new Font("Arial", Font.BOLD, 32));
+        startButton.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 25, 200, 50);
         startButton.addActionListener(e -> startGame());
         gamePanel.add(startButton);
 
@@ -82,7 +98,7 @@ public class TAISEI extends JFrame {
             }
         });
 
-        gamePanel.addMouseListener(new MouseAdapter() { // gamePanelにMouseListenerを追加
+        gamePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!gameOver && targetPosition != null && isClickInsideTarget(e.getPoint())) {
@@ -91,6 +107,16 @@ public class TAISEI extends JFrame {
                     spawnTarget();
                     scoreLabel.setText("Score: " + score);
                     repaint();
+                }
+            }
+        });
+
+        // KeyListenerの追加
+        gamePanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER && gameOver) {
+                    startGame(); // ゲームをリスタート
                 }
             }
         });
@@ -104,8 +130,8 @@ public class TAISEI extends JFrame {
     }
 
     private void spawnTarget() {
-        int x = (int) (Math.random() * (gamePanel.getWidth() - targetDiameter)); // gamePanelの幅を使用
-        int y = (int) (Math.random() * (gamePanel.getHeight() - targetDiameter)); // gamePanelの高さを使用
+        int x = (int) (Math.random() * (gamePanel.getWidth() - targetDiameter)); 
+        int y = (int) (Math.random() * (gamePanel.getHeight() - targetDiameter)); 
         targetPosition = new Point(x, y);
         repaint();
     }
@@ -126,7 +152,7 @@ public class TAISEI extends JFrame {
         spawnTarget();
         gameTimer.start();
         startButton.setVisible(false);
-        timerLabel.setText("Time: " + remainingTime); // タイマー表示を更新
-        scoreLabel.setText("Score: " + score); // スコア表示を更新
+        timerLabel.setText("Time: " + remainingTime);
+        scoreLabel.setText("Score: " + score);
     }
 }
