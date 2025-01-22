@@ -52,7 +52,7 @@ public class HARU {
             haruButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                	JOptionPane.showMessageDialog(frame, "クリア！");
+                	JOptionPane.showMessageDialog(frame, "クリア！！！");
                     Window window = SwingUtilities.getWindowAncestor(haruButton);
                     if (window != null) {
                         window.dispose();
