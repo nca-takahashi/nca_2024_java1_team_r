@@ -1,11 +1,20 @@
 package SimpleSwingProgram;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 class IBUKI extends JFrame {
     // 質問と正解インデックスを保持するクラス
@@ -38,7 +47,7 @@ class IBUKI extends JFrame {
         questionList.add(new Question("コンピューターで人間の脳を再現したものは何？", new String[]{"a) AI", "b) 機械学習", "c) ニューラルネットワーク", "d)コンピューティング"}, 2));
         questionList.add(new Question("Javaの創始者は誰？", new String[]{"a) ジェームズ・ゴスリン", "b) ビル・ゲイツ", "c) グイド・ヴァンロッサム", "d) ラリー・ペイジ"}, 0));
         questionList.add(new Question("ロシア革命はいつ起きた？", new String[]{"a) 1917年", "b) 1918年", "c) 1919年", "d) 1921年"}, 0));
-        questionList.add(new Question("指輪物語を著書したのは誰？", new String[]{"a) J・Kローリング", "b)アーサー・コナン・ドイル , "c) J・R・R・トールキン", "d) C・S・ルイス"}, 2));
+        questionList.add(new Question("指輪物語を著書したのは誰？", new String[]{"a) J・Kローリング", "b)アーサー・コナン・ドイル" , "c) J・R・R・トールキン", "d) C・S・ルイス"}, 2));
         questionList.add(new Question("メキシコ革命はいつ起きた？", new String[]{"a) 1920年", "b) 1914年", "c) 1919年", "d) 1910年"}, 3));
         questionList.add(new Question("ロシア革命はいつ起きた？", new String[]{"a) 1917年", "b) 1918年", "c) 1919年", "d) 1921年"}, 0));
         questionList.add(new Question("世界で一番広い砂漠は？", new String[]{"a) サハラ砂漠", "b) ゴビ砂漠", "c) 南極", "d) ネバダ砂漠"}, 2));
