@@ -49,9 +49,7 @@ class IBUKI extends JFrame {
         questionList.add(new Question("ロシア革命はいつ起きた？", new String[]{"a) 1917年", "b) 1918年", "c) 1919年", "d) 1921年"}, 0));
         questionList.add(new Question("指輪物語を著書したのは誰？", new String[]{"a) J・Kローリング", "b)アーサー・コナン・ドイル" , "c) J・R・R・トールキン", "d) C・S・ルイス"}, 2));
         questionList.add(new Question("メキシコ革命はいつ起きた？", new String[]{"a) 1920年", "b) 1914年", "c) 1919年", "d) 1910年"}, 3));
-        questionList.add(new Question("ロシア革命はいつ起きた？", new String[]{"a) 1917年", "b) 1918年", "c) 1919年", "d) 1921年"}, 0));
         questionList.add(new Question("世界で一番広い砂漠は？", new String[]{"a) サハラ砂漠", "b) ゴビ砂漠", "c) 南極", "d) ネバダ砂漠"}, 2));
-        questionList.add(new Question("ロシア革命はいつ起きた？", new String[]{"a) 1917年", "b) 1918年", "c) 1919年", "d) 1921年"}, 0));
         questionList.add(new Question("金閣寺を著書したのは誰？", new String[]{"a) 三島由紀夫", "b) 夏目漱石", "c) 山崎豊子", "d) 茶川龍之介"}, 0));
         questionList.add(new Question("世界で一番大きい湖は？", new String[]{"a) アラル海", "b) カスピ海", "c) 五大湖", "d) 琵琶湖"}, 1));
         questionList.add(new Question("アメリカの首都は？", new String[]{"a) ニューヨーク", "b) ワシントンDC", "c) フィラデルフィア", "d) ロサンゼルス"}, 0));
