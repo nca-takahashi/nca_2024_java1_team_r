@@ -11,9 +11,9 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            JFrame window = new JFrame("Simple Swing App");
+            JFrame window = new JFrame("シンプルなSwingプログラム");
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setSize(new Dimension(500, 500));
+            window.setSize(new Dimension(640, 510));
             window.setResizable(false);
 
             JPanel mainPanel = new JPanel();
@@ -32,23 +32,31 @@ public class Main {
             label.setAlignmentX(Component.CENTER_ALIGNMENT);
             label.setFont(new Font("SansSerif", Font.BOLD, 16));
             panel1.add(label);
-            JLabel label2 = new JLabel("Welcome to our team's project!");
+            JLabel label2 = new JLabel("私達のプロジェクトへようこそ！");
             label2.setAlignmentX(Component.CENTER_ALIGNMENT);
             label2.setFont(new Font("SansSerif", Font.PLAIN, 14));
             panel1.add(label2);
+            JLabel label3 = new JLabel("Made By 小坂祥悟");
+            label3.setAlignmentX(Component.CENTER_ALIGNMENT);
+            label3.setFont(new Font("SansSerif", Font.PLAIN, 14));
+            panel1.add(label3);
+            JLabel label4 = new JLabel("Made By 愉快な仲間たち");
+            label4.setAlignmentX(Component.CENTER_ALIGNMENT);
+            label4.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
-            JButton button = createModernButton("Click me!", e -> label.setText("Button clicked!"));
-            JButton clockButton = createModernButton("Digital Clock", e -> showDigitalClock());
-            JButton diceButton = createModernButton("Roll Dice", e -> label.setText("You rolled a " + (new Random().nextInt(6) + 1)));
-            JButton colorButton = createModernButton("Change Color (Check border)", e -> changeColors(window, mainPanel, panel1, panel2));
-            JButton infinityButton = createModernButton("Infinity Window", e -> showInfinityWindow());
-            JButton calculatorButton = createModernButton("Simple Calculator", e -> showCalculator());
-            JButton mazeButton = createModernButton("Yuga's maze game", e -> YUGA.main(args));
-            JButton adButton = createModernButton("Mina's Ad Closing game", e -> MINA.main(args));
-            JButton clickButton = createModernButton("Taisei's Clicking Game", e -> TAISEI.main(args));
-            JButton haruButton = createModernButton("Haru's Subscribing Button", e -> HARU.main(args));
-            JButton HIDEButton = createModernButton("Hideaki's Sugoroku Game", e -> HIDEAKI.main(args));
-            JButton IBUKIButton = createModernButton("Ibuki's Quiz Game", e -> IBUKI.main(args));
+
+            JButton button = createModernButton("私をクリックしてください！", e -> label.setText("クリックされた！!"));
+            JButton clockButton = createModernButton("電子時計", e -> showDigitalClock());
+            JButton diceButton = createModernButton("サイコロを振る", e -> label.setText("あなたは:" + (new Random().nextInt(6) + 1)));
+            JButton colorButton = createModernButton("色変え（ボーダーを確認する）", e -> changeColors(window, mainPanel, panel1, panel2));
+            JButton infinityButton = createModernButton("無限窓", e -> showInfinityWindow());
+            JButton calculatorButton = createModernButton("シンプル計算機", e -> showCalculator());
+            JButton mazeButton = createModernButton("林勇牙 迷路ゲーム", e -> YUGA.main(args));
+            JButton adButton = createModernButton("元澤魅愛 詐欺広告増殖削除ゲーム", e -> MINA.main(args));
+            JButton clickButton = createModernButton("杉山太成 的あてゲーム", e -> TAISEI.main(args));
+            JButton haruButton = createModernButton("平光晴 広告詐欺削除ゲーム", e -> HARU.main(args));
+            JButton HIDEButton = createModernButton("山北禿明 すごろくゲーム", e -> HIDEAKI.main(args));
+            JButton IBUKIButton = createModernButton("末吉伊吹 クイズゲーム", e -> IBUKI.main(args));
 
             panel1.add(Box.createRigidArea(new Dimension(10, 20)));
             panel1.add(button);
@@ -63,6 +71,8 @@ public class Main {
             panel1.add(Box.createRigidArea(new Dimension(10, 20)));
             panel1.add(calculatorButton);
 
+            panel2.add(Box.createRigidArea(new Dimension(10, 44)));
+            panel2.add(label4);
             panel2.add(Box.createRigidArea(new Dimension(10, 20)));
             panel2.add(mazeButton);
             panel2.add(Box.createRigidArea(new Dimension(10, 20)));
@@ -95,6 +105,13 @@ public class Main {
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Set a fixed width for all buttons
+        Dimension buttonSize = new Dimension(300, button.getPreferredSize().height);
+        button.setPreferredSize(buttonSize);
+        button.setMaximumSize(buttonSize);
+        button.setMinimumSize(buttonSize);
+
         return button;
     }
 
@@ -107,7 +124,7 @@ public class Main {
     }
 
     private static void showDigitalClock() {
-        JFrame secondWindow = new JFrame("Digital Clock");
+        JFrame secondWindow = new JFrame("電子時計");
         secondWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         secondWindow.setSize(new Dimension(300, 200));
 
@@ -152,7 +169,7 @@ public class Main {
     }
 
     private static void showInfinityWindow() {
-        JFrame infinityFrame = new JFrame("Infinity Window");
+        JFrame infinityFrame = new JFrame("無限窓");
         infinityFrame.setSize(400, 300);
         infinityFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -160,13 +177,13 @@ public class Main {
             @Override
             public void windowClosed(WindowEvent windowEvent) {
                 SwingUtilities.invokeLater(() -> {
-                    JFrame newFrame = new JFrame("Infinity Window");
+                    JFrame newFrame = new JFrame("無限窓");
                     newFrame.setSize(400, 300);
                     newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
                     newFrame.addWindowListener(this);
 
-                    JLabel label = new JLabel("Catch me if you can!");
+                    JLabel label = new JLabel("消せるかな？");
                     label.setHorizontalAlignment(JLabel.CENTER);
                     newFrame.getContentPane().add(label);
 
@@ -175,7 +192,7 @@ public class Main {
             }
         });
 
-        JLabel messageLabel = new JLabel("You can't escape!");
+        JLabel messageLabel = new JLabel("この窓からは逃れられない！");
         messageLabel.setHorizontalAlignment(JLabel.CENTER);
         infinityFrame.getContentPane().add(messageLabel);
 
@@ -183,7 +200,7 @@ public class Main {
     }
 
     private static void showCalculator() {
-        JFrame calcWindow = new JFrame("Simple Calculator");
+        JFrame calcWindow = new JFrame("シンプル計算機");
         calcWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         calcWindow.setSize(new Dimension(300, 200));
         calcWindow.setVisible(true);
@@ -192,7 +209,7 @@ public class Main {
         calcPanel.setLayout(new GridLayout(5, 1));
         calcWindow.add(calcPanel);
 
-        JLabel titleLabel = new JLabel("Simple Calculator!");
+        JLabel titleLabel = new JLabel("シンプル計算機!");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         calcPanel.add(titleLabel);
 
@@ -205,11 +222,11 @@ public class Main {
         inputPanel.add(secondField);
         calcPanel.add(inputPanel);
 
-        JLabel resultLabel = new JLabel("RESULT");
+        JLabel resultLabel = new JLabel("結果: ");
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
         calcPanel.add(resultLabel);
 
-        JButton calcButton = new JButton("Calculate");
+        JButton calcButton = new JButton("計算");
         calcButton.addActionListener(e -> {
             double firstNumber = Double.parseDouble(firstField.getText());
             String operation = operationField.getText();
