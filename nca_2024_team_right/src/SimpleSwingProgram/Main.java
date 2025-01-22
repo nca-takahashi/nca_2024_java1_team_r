@@ -60,6 +60,7 @@ public class Main {
             JLabel label4 = new JLabel("Made By 愉快な仲間たち");
             label4.setAlignmentX(Component.CENTER_ALIGNMENT);
             label4.setFont(new Font("SansSerif", Font.PLAIN, 14));
+            
 
 
             JButton button = createModernButton("私をクリックしてください！", e -> label.setText("クリックされた！!"));
