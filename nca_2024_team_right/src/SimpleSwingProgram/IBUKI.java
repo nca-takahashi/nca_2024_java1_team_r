@@ -45,6 +45,7 @@ class IBUKI extends JFrame {
         questionList.add(new Question("ロシア革命はいつ起きた？", new String[]{"a) 1917年", "b) 1918年", "c) 1919年", "d) 1921年"}, 0));
         questionList.add(new Question("金閣寺を著書したのは誰？", new String[]{"a) 三島由紀夫", "b) 夏目漱石", "c) 山崎豊子", "d) 茶川龍之介"}, 0));
         questionList.add(new Question("世界で一番大きい湖は？", new String[]{"a) アラル海", "b) カスピ海", "c) 五大湖", "d) 琵琶湖"}, 1));
+        questionList.add(new Question("アメリカの首都は？", new String[]{"a) ニューヨーク", "b) ワシントンDC", "c) フィラデルフィア", "d) ロサンゼルス"}, 0));
         // 必要に応じて他の質問も追加
 
         // 質問をシャッフル
