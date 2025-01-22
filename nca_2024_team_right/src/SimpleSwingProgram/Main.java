@@ -71,7 +71,7 @@ public class Main {
             panel1.add(Box.createRigidArea(new Dimension(10, 20)));
             panel1.add(calculatorButton);
 
-            panel2.add(Box.createRigidArea(new Dimension(10, 44)));
+            panel2.add(Box.createRigidArea(new Dimension(10, 43)));
             panel2.add(label4);
             panel2.add(Box.createRigidArea(new Dimension(10, 20)));
             panel2.add(mazeButton);
