@@ -1,69 +1,65 @@
 package SimpleSwingProgram;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
-
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame window = new JFrame("Simple Swing App");
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setSize(new Dimension(440, 320));
+            window.setSize(new Dimension(500, 500));
             window.setResizable(false);
 
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+            mainPanel.setBackground(Color.WHITE);
+            mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
             JPanel panel1 = new JPanel();
             JPanel panel2 = new JPanel();
             panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
             panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+            panel1.setBackground(Color.WHITE);
+            panel2.setBackground(Color.WHITE);
 
             JLabel label = new JLabel("Hello, Java Swing!");
             label.setAlignmentX(Component.CENTER_ALIGNMENT);
+            label.setFont(new Font("SansSerif", Font.BOLD, 16));
             panel1.add(label);
             JLabel label2 = new JLabel("Welcome to our team's project!");
             label2.setAlignmentX(Component.CENTER_ALIGNMENT);
+            label2.setFont(new Font("SansSerif", Font.PLAIN, 14));
             panel1.add(label2);
 
-            JButton button = createButton("Click me!", e -> label.setText("Button clicked!"));
-            JButton clockButton = createButton("Digital Clock", e -> showDigitalClock());
-            JButton diceButton = createButton("Roll Dice", e -> label.setText("You rolled a " + (new Random().nextInt(6) + 1)));
-            JButton colorButton = createButton("Change Color (Check border)", e -> changeColors(window, mainPanel, panel1, panel2));
-            JButton infinityButton = createButton("Infinity Window", e -> showInfinityWindow());
-            JButton calculatorButton = createButton("Simple Calculator", e -> showCalculator());
-            JButton mazeButton = createButton("Yuga's maze game", e -> YUGA.main(args));
-            JButton adButton = createButton("Mina's Ad Closing game", e -> MINA.main(args));
-            JButton clickButton = createButton("Taisei's Clicking Game", e -> TAISEI.main(args));
-            JButton haruButton = createButton("Haru's Subscribing Button", e -> HARU.main(args));
-            JButton HIDEButton = createButton("Hideaki's Sugoroku Game", e -> HIDEAKI.main(args));
-            JButton IBUKIButton = createButton("Ibuki's Quiz Game", e -> IBUKI.main(args));
+            JButton button = createModernButton("Click me!", e -> label.setText("Button clicked!"));
+            JButton clockButton = createModernButton("Digital Clock", e -> showDigitalClock());
+            JButton diceButton = createModernButton("Roll Dice", e -> label.setText("You rolled a " + (new Random().nextInt(6) + 1)));
+            JButton colorButton = createModernButton("Change Color (Check border)", e -> changeColors(window, mainPanel, panel1, panel2));
+            JButton infinityButton = createModernButton("Infinity Window", e -> showInfinityWindow());
+            JButton calculatorButton = createModernButton("Simple Calculator", e -> showCalculator());
+            JButton mazeButton = createModernButton("Yuga's maze game", e -> YUGA.main(args));
+            JButton adButton = createModernButton("Mina's Ad Closing game", e -> MINA.main(args));
+            JButton clickButton = createModernButton("Taisei's Clicking Game", e -> TAISEI.main(args));
+            JButton haruButton = createModernButton("Haru's Subscribing Button", e -> HARU.main(args));
+            JButton HIDEButton = createModernButton("Hideaki's Sugoroku Game", e -> HIDEAKI.main(args));
+            JButton IBUKIButton = createModernButton("Ibuki's Quiz Game", e -> IBUKI.main(args));
 
             panel1.add(button);
+            panel1.add(Box.createRigidArea(new Dimension(10, 20)));
             panel1.add(clockButton);
+            panel1.add(Box.createRigidArea(new Dimension(10, 20)));
             panel1.add(diceButton);
+            panel1.add(Box.createRigidArea(new Dimension(10, 20)));
             panel1.add(colorButton);
+            panel1.add(Box.createRigidArea(new Dimension(10, 20)));
             panel1.add(infinityButton);
+            panel1.add(Box.createRigidArea(new Dimension(10, 20)));
             panel1.add(calculatorButton);
 
             panel2.add(Box.createRigidArea(new Dimension(10, 20)));
@@ -87,6 +83,20 @@ public class Main {
         });
     }
 
+    private static JButton createModernButton(String text, java.awt.event.ActionListener actionListener) {
+        JButton button = new JButton(text);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.addActionListener(actionListener);
+        button.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        button.setBackground(new Color(70, 130, 180));
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return button;
+    }
+
+    @Deprecated
     private static JButton createButton(String text, java.awt.event.ActionListener actionListener) {
         JButton button = new JButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
