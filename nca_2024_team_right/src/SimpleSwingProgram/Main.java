@@ -50,6 +50,7 @@ public class Main {
             JButton HIDEButton = createModernButton("Hideaki's Sugoroku Game", e -> HIDEAKI.main(args));
             JButton IBUKIButton = createModernButton("Ibuki's Quiz Game", e -> IBUKI.main(args));
 
+            panel1.add(Box.createRigidArea(new Dimension(10, 20)));
             panel1.add(button);
             panel1.add(Box.createRigidArea(new Dimension(10, 20)));
             panel1.add(clockButton);
