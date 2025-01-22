@@ -77,6 +77,7 @@ public class Main {
             panel2.add(IBUKIButton);
 
             mainPanel.add(panel1);
+            mainPanel.add(Box.createRigidArea(new Dimension(20, 0))); // Add a spacer panel between panel1 and panel2
             mainPanel.add(panel2);
             window.add(mainPanel);
             window.setLocationRelativeTo(null);
