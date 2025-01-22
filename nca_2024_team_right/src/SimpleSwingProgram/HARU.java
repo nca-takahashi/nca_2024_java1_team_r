@@ -48,7 +48,7 @@ public class HARU {
             JPanel realButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Use FlowLayout.RIGHT
             realButtonPanel.setOpaque(false); // Make the panel transparent
             JButton haruButton = new JButton("X");
-            haruButton.setPreferredSize(new Dimension(5, 5)); // Adjust the button size
+            haruButton.setPreferredSize(new Dimension(1,1 )); // Adjust the button size
             haruButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
