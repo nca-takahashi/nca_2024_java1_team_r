@@ -29,14 +29,22 @@ class IBUKI extends JFrame {
 
     public IBUKI() {
         // 質問を作成してリストに追加
-        questionList.add(new Question("1. 関ヶ原の戦いが起きたのはいつ？", new String[]{"a) 1603年", "b) 1600年", "c) 1590年", "d)1560年"}, 1));
-        questionList.add(new Question("2. 明治維新はいつ起きた？", new String[]{"a) 1850年", "b) 1859年", "c) 1868年", "d) 1889年"}, 2));
-        questionList.add(new Question("3. この中で同じ種類じゃない動物は？", new String[]{"a) 牛", "b) ヒツジ", "c) 熊", "d) 鯨"}, 2));
-        questionList.add(new Question("4. 億、兆、京、垓の次の単位は？", new String[]{"a) 正", "b) 溝", "c) 不可思議", "d) 秭"}, 3));
-        questionList.add(new Question("5. ブラジルの首都は？", new String[]{"a) ブラジリア", "b) サンパウロ", "c) リオデジャネイロ", "d)ブエノスアイレス"}, 0));
-        questionList.add(new Question("6. 宮城県は何の収穫量が日本一？", new String[]{"a) 米", "b) リンゴ", "c) パプリカ", "d) キャベツ"}, 2));
-        questionList.add(new Question("7. コンピューターで人間の脳を再現したものは何？", new String[]{"a) AI", "b) 機械学習", "c) ニューラルネットワーク", "d)コンピューティング"}, 2));
-        questionList.add(new Question("8. Javaの創始者は誰？", new String[]{"a) ジェームズ・ゴスリン", "b) ビル・ゲイツ", "c) グイド・ヴァンロッサム", "d) ラリー・ペイジ"}, 0));
+        questionList.add(new Question("関ヶ原の戦いが起きたのはいつ？", new String[]{"a) 1603年", "b) 1600年", "c) 1590年", "d)1560年"}, 1));
+        questionList.add(new Question("明治維新はいつ起きた？", new String[]{"a) 1850年", "b) 1859年", "c) 1868年", "d) 1889年"}, 2));
+        questionList.add(new Question("この中で同じ種類じゃない動物は？", new String[]{"a) 牛", "b) ヒツジ", "c) 熊", "d) 鯨"}, 2));
+        questionList.add(new Question("億、兆、京、垓の次の単位は？", new String[]{"a) 正", "b) 溝", "c) 不可思議", "d) 秭"}, 3));
+        questionList.add(new Question("ブラジルの首都は？", new String[]{"a) ブラジリア", "b) サンパウロ", "c) リオデジャネイロ", "d)ブエノスアイレス"}, 0));
+        questionList.add(new Question("宮城県は何の収穫量が日本一？", new String[]{"a) 米", "b) リンゴ", "c) パプリカ", "d) キャベツ"}, 2));
+        questionList.add(new Question("コンピューターで人間の脳を再現したものは何？", new String[]{"a) AI", "b) 機械学習", "c) ニューラルネットワーク", "d)コンピューティング"}, 2));
+        questionList.add(new Question("Javaの創始者は誰？", new String[]{"a) ジェームズ・ゴスリン", "b) ビル・ゲイツ", "c) グイド・ヴァンロッサム", "d) ラリー・ペイジ"}, 0));
+        questionList.add(new Question("ロシア革命はいつ起きた？", new String[]{"a) 1917年", "b) 1918年", "c) 1919年", "d) 1921年"}, 0));
+        questionList.add(new Question("指輪物語を著書したのは誰？", new String[]{"a) J・Kローリング", "b)アーサー・コナン・ドイル , "c) J・R・R・トールキン", "d) C・S・ルイス"}, 2));
+        questionList.add(new Question("メキシコ革命はいつ起きた？", new String[]{"a) 1920年", "b) 1914年", "c) 1919年", "d) 1910年"}, 3));
+        questionList.add(new Question("ロシア革命はいつ起きた？", new String[]{"a) 1917年", "b) 1918年", "c) 1919年", "d) 1921年"}, 0));
+        questionList.add(new Question("世界で一番広い砂漠は？", new String[]{"a) サハラ砂漠", "b) ゴビ砂漠", "c) 南極", "d) ネバダ砂漠"}, 2));
+        questionList.add(new Question("ロシア革命はいつ起きた？", new String[]{"a) 1917年", "b) 1918年", "c) 1919年", "d) 1921年"}, 0));
+        questionList.add(new Question("金閣寺を著書したのは誰？", new String[]{"a) 三島由紀夫", "b) 夏目漱石", "c) 山崎豊子", "d) 茶川龍之介"}, 0));
+        questionList.add(new Question("世界で一番大きい湖は？", new String[]{"a) アラル海", "b) カスピ海", "c) 五大湖", "d) 琵琶湖"}, 1));
         // 必要に応じて他の質問も追加
 
         // 質問をシャッフル
