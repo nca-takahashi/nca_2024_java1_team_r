@@ -69,12 +69,12 @@ public class Main {
             JButton colorButton = createModernButton("色変え（ボーダーを確認する）", e -> changeColors(window, mainPanel, panel1, panel2));
             JButton infinityButton = createModernButton("無限窓", e -> showInfinityWindow());
             JButton calculatorButton = createModernButton("シンプル計算機", e -> showCalculator());
-            JButton mazeButton = createModernButton("林勇牙 迷路ゲーム", e -> YUGA.main(args));
-            JButton adButton = createModernButton("元澤魅愛 詐欺広告増殖削除ゲーム", e -> MINA.main(args));
-            JButton clickButton = createModernButton("杉山太成 的あてゲーム", e -> TAISEI.main(args));
-            JButton haruButton = createModernButton("平光晴 広告詐欺削除ゲーム", e -> HARU.main(args));
-            JButton HIDEButton = createModernButton("山北禿明 すごろくゲーム", e -> HIDEAKI.main(args));
-            JButton IBUKIButton = createModernButton("末吉伊吹 クイズゲーム", e -> IBUKI.main(args));
+            JButton mazeButton = createModernButton("林勇牙 － 迷路ゲーム", e -> YUGA.main(args));
+            JButton adButton = createModernButton("元澤魅愛 － 詐欺広告増殖削除ゲーム", e -> MINA.main(args));
+            JButton clickButton = createModernButton("杉山太成 － 的あてゲーム", e -> TAISEI.main(args));
+            JButton haruButton = createModernButton("平光晴 － 広告詐欺削除ゲーム", e -> HARU.main(args));
+            JButton HIDEButton = createModernButton("山北禿明 － すごろくゲーム", e -> HIDEAKI.main(args));
+            JButton IBUKIButton = createModernButton("末吉伊吹 － クイズゲーム", e -> IBUKI.main(args));
 
             panel1.add(Box.createRigidArea(new Dimension(10, 20)));
             panel1.add(button);
