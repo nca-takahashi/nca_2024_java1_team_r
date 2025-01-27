@@ -1,78 +1,42 @@
 package SimpleSwingProgram;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+import java.awt.*;
 
 public class HARU {
-
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Haru's Buttons");
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.setLayout(new BorderLayout()); // Use BorderLayout for the frame layout
+        // Get the default screen device (the screen the program will run on)
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
 
-            // Create the fake button panel
-            JPanel fakeButtonPanel = new JPanel(new BorderLayout());
-            fakeButtonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        // Create a frame
+        JFrame frame = new JFrame("HARU Frame");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setUndecorated(true);  // Remove the title bar and window decorations
 
-            JLabel fakeButtonLabel = new JLabel("Click Me!");
-            fakeButtonLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            fakeButtonPanel.add(fakeButtonLabel, BorderLayout.CENTER);
-
-            fakeButtonPanel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    if (e.getButton() == MouseEvent.BUTTON1) {
-                        JOptionPane.showMessageDialog(frame, "登録されました");
-                    }
-                }
-            });
-
-            JPanel realButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Use FlowLayout.RIGHT
-            realButtonPanel.setOpaque(false); // Make the panel transparent
-            JButton haruButton = new JButton("X");
-            haruButton.setPreferredSize(new Dimension(1,1 )); // Adjust the button size
-            haruButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                	JOptionPane.showMessageDialog(frame, "クリア！！！");
-                    Window window = SwingUtilities.getWindowAncestor(haruButton);
-                    if (window != null) {
-                        window.dispose();
-                    }
-                }
-            });
-
-            fakeButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            realButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            realButtonPanel.add(haruButton);
-
-            // Add the real button panel to the fake button panel's NORTH position
-            fakeButtonPanel.add(realButtonPanel, BorderLayout.NORTH);
-
-            // Add the fake button panel to the frame
-            frame.add(fakeButtonPanel, BorderLayout.CENTER);
-
-            frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Start in full-screen mode
-            frame.setVisible(true);
+        // Set the frame to be fullscreen
+        gd.setFullScreenWindow(frame);
+        
+        // Create a panel with a MouseListener
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.LIGHT_GRAY);
+        panel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                System.out.println("Panel clicked at: " + e.getPoint());
+            }
         });
+
+        // Create a button (without adding an action listener, so no action will happen)
+        JButton button = new JButton("I do nothing");
+        button.preferedSize
+
+        // Add the button to the panel
+        panel.add(button);
+
+        // Add the panel to the frame
+        frame.add(panel);
+
+        // Set the frame visible (already fullscreen)
+        frame.setVisible(true);
     }
 }
-
