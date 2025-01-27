@@ -28,7 +28,7 @@ public class HARU {
 
         // Create a button (without adding an action listener, so no action will happen)
         JButton button = new JButton("I do nothing");
-        button.preferedSize
+        button.setBounds(50, 50, 200, 50);
 
         // Add the button to the panel
         panel.add(button);
